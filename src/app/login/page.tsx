@@ -4,10 +4,10 @@ import { Input } from "@/components/ui/input";
 import { useUser } from "@/provider/AuthProvider";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useContext, useState } from "react";
-import { Toaster, toast } from "sonner";
+import { Toaster } from "sonner";
 type userType = {
-  email: string;
-  password: string;
+  email: String;
+  password: String;
 };
 const Page = () => {
   const router = useRouter();

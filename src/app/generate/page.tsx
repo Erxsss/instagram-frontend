@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 const Page = () => {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<String>("");
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
