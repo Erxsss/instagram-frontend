@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { upload } from "@vercel/blob/client";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 const Page = () => {
@@ -43,6 +44,11 @@ const Page = () => {
       }
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
+      const file = new File([blob], "generated.png", { type: "image/png" });
+      const uploaded = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "api/upload",
+      });
       setImageUrl(imageUrl);
     } catch (err) {
       setIsLoading(false);
