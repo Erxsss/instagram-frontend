@@ -3,15 +3,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/provider/AuthProvider";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Toaster } from "sonner";
+
 type userType = {
-  email: String;
-  password: String;
+  email: string;
+  password: string;
 };
 const Page = () => {
   const router = useRouter();
-  const { login, user, setUser } = useUser();
+  const { login } = useUser();
   const [userInfo, setUserInfo] = useState<userType>({
     email: "",
     password: "",

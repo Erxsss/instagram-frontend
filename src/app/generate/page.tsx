@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 const Page = () => {
-  const [inputValue, setInputValue] = useState<String>("");
+  const [inputValue, setInputValue] = useState<string>("");
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
@@ -33,7 +33,7 @@ const Page = () => {
             parameter: {
               negative_prompt: "blurry , bad quality,disorted",
               num_inference_steps: 20,
-              guidance_scale: 8.5,
+              guidance_scale: 7.6,
             },
           }),
         }
@@ -61,7 +61,7 @@ const Page = () => {
         </div>
         <div>
           <p className="text-gray-600">
-            Describe what's on your mind. For best results, be specific
+            Describe what is on your mind. For best results, be specific
           </p>
         </div>
         <div>

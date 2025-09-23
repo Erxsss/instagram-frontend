@@ -8,21 +8,21 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { toast, Toaster } from "sonner";
+import { toast } from "sonner";
 type User = {
-  email: String;
-  password: String;
-  username: String;
-  bio: String | null;
-  profilePic: String | null;
+  email: string;
+  password: string;
+  username: string;
+  bio: string | null;
+  profilePic: string | null;
 };
 type contextType = {
-  login: (email: String, password: String) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   signup: (
-    username: String,
-    email: String,
-    password: String,
-    bio: String
+    username: string,
+    email: string,
+    password: string,
+    bio: string
   ) => Promise<void>;
   user: User | null;
   setUser: Dispatch<SetStateAction<null | User>>;
@@ -40,10 +40,10 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   }, []);
   console.log(user);
   const signup = async (
-    username: String,
-    email: String,
-    password: String,
-    bio: String
+    username: string,
+    email: string,
+    password: string,
+    bio: string
   ) => {
     const response = await fetch("http://localhost:5555/user/signup", {
       method: "POST",
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     localStorage.setItem("user", JSON.stringify(user));
   };
 
-  const login = async (email: String, pass: String) => {
+  const login = async (email: string, pass: string) => {
     const response = await fetch("http://localhost:5555/user/login", {
       method: "POST",
       headers: {
