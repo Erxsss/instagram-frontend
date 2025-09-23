@@ -1,8 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { useUser } from "@/provider/AuthProvider";
 import { useRouter } from "next/navigation";
+
 export default function Home() {
-  const user = localStorage.getItem("user");
+  const { user } = useUser();
   const router = useRouter();
 
   if (!user) {
