@@ -10,6 +10,7 @@ import {
 } from "react";
 import { toast } from "sonner";
 type User = {
+  _id: string;
   email: string;
   password: string;
   username: string;
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   }, []);
   console.log(user);
+
   const signup = async (
     username: string,
     email: string,

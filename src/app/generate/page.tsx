@@ -1,10 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useUser } from "@/provider/AuthProvider";
 import { upload } from "@vercel/blob/client";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 const Page = () => {
+  const { user } = useUser();
   const [inputValue, setInputValue] = useState<string>("");
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -12,6 +14,7 @@ const Page = () => {
   };
   const [imageUrl, setImageUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [caption, setCaption] = useState("");
   const API_KEY = process.env.API_KEY;
   console.log(inputValue);
   const generateImage = async () => {
@@ -34,7 +37,7 @@ const Page = () => {
             parameter: {
               negative_prompt: "blurry , bad quality,disorted",
               num_inference_steps: 20,
-              guidance_scale: 7.6,
+              guidance_scale: 8.6,
             },
           }),
         }
@@ -43,22 +46,39 @@ const Page = () => {
         throw new Error(`HTTP error! status:${response.status}`);
       }
       const blob = await response.blob();
-      const imageUrl = URL.createObjectURL(blob);
       const file = new File([blob], "generated.png", { type: "image/png" });
       const uploaded = await upload(file.name, file, {
         access: "public",
         handleUploadUrl: "api/upload",
       });
+      const imageUrl = uploaded.url;
+      console.log(uploaded);
       setImageUrl(imageUrl);
     } catch (err) {
       setIsLoading(false);
     }
   };
+  console.log(caption);
   const isEnterPressed = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       generateImage();
     }
   };
+
+  const createPost = async () => {
+    await fetch("http://localhost:5555/post/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: user?._id,
+        caption: caption,
+        images: imageUrl,
+      }),
+    });
+  };
+  console.log(imageUrl);
   return (
     <div className="w-[100vw] h-[100vh] p-[20px] ">
       <div className="flex flex-col gap-[5px]">
@@ -80,6 +100,13 @@ const Page = () => {
             onKeyDown={(e) => isEnterPressed(e)}
           />
         </div>
+        <div>
+          <Input
+            placeholder="Please Enter Caption"
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+          />
+        </div>
         <div className="flex justify-center mt-[5px] ">
           <Button
             onClick={generateImage}
@@ -91,6 +118,9 @@ const Page = () => {
         </div>
         <div>
           <img className="rounded-2xl" src={imageUrl} alt="" />
+        </div>
+        <div>
+          <Button onClick={createPost}>Create Post</Button>
         </div>
       </div>
     </div>
