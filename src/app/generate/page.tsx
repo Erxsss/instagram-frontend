@@ -3,11 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/provider/AuthProvider";
 import { upload } from "@vercel/blob/client";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 const Page = () => {
   const { user } = useUser();
   const [inputValue, setInputValue] = useState<string>("");
+  const router = useRouter();
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
@@ -77,6 +79,7 @@ const Page = () => {
         images: imageUrl,
       }),
     });
+    router.push("/");
   };
   console.log(imageUrl);
   return (

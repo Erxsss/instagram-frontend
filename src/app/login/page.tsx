@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/provider/AuthProvider";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 
 type userType = {
@@ -12,7 +12,7 @@ type userType = {
 };
 const Page = () => {
   const router = useRouter();
-  const { login } = useUser();
+  const { login, user } = useUser();
   const [userInfo, setUserInfo] = useState<userType>({
     email: "",
     password: "",
@@ -35,10 +35,16 @@ const Page = () => {
     await login(userInfo.email, userInfo.password);
     router.push("/");
   };
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
+
   return (
     <div className="flex w-[100vw] h-[100vh] flex-col">
-      <div className="flex ">
-        <div></div>
+      <div className="flex justify-center w-[100%] h-[100%] items-center">
         <div>
           <div>
             <Input
