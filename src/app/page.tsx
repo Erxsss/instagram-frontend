@@ -5,12 +5,16 @@ import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 
 export default function Home() {
-  const { user } = useUser();
+  const { user, token } = useUser();
   const router = useRouter();
   const [posts, setPost] = useState([]);
   const findPost = async () => {
-    const response = await fetch("http://localhost:5555/post/posts", {  
+    const response = await fetch("http://localhost:5555/post/posts", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     const res = await response.json();
     setPost(res);

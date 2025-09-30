@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 const Page = () => {
-  const { user } = useUser();
+  const { user, token } = useUser();
   const [inputValue, setInputValue] = useState<string>("");
   const router = useRouter();
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,9 +72,9 @@ const Page = () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        userId: user?._id,
         caption: caption,
         images: imageUrl,
       }),

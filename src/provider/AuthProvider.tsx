@@ -1,4 +1,6 @@
 "use client";
+import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   PropsWithChildren,
@@ -27,16 +29,25 @@ type contextType = {
   ) => Promise<void>;
   user: User | null;
   setUser: Dispatch<SetStateAction<null | User>>;
+  token: string | null;
+  setToken: Dispatch<SetStateAction<null | string>>;
+};
+type decodedToken = {
+  data: User;
 };
 
 export const AuthContext = createContext<contextType | null>(null);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
+  const { push } = useRouter();
   const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
-    const userItem = localStorage.getItem("user");
-    if (userItem) {
-      setUser(JSON.parse(userItem));
+    const localToken = localStorage.getItem("token");
+    if (localToken) {
+      const decodedToken: decodedToken = jwtDecode(localToken);
+      setToken(localToken);
+      setUser(decodedToken.data);
     }
   }, []);
   console.log(user);
@@ -59,9 +70,14 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
         bio: bio,
       }),
     });
-    const user = await response.json();
-    setUser(user);
-    localStorage.setItem("user", JSON.stringify(user));
+    if (response.ok) {
+      const res = await response.json();
+      localStorage.setItem("token", res);
+      toast.success("Signed Up");
+      push("/");
+    } else {
+      toast.error("Cant Signed Up");
+    }
   };
 
   const login = async (email: string, pass: string) => {
@@ -78,13 +94,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     console.log(response);
 
     if (!response.ok) {
-      console.log("gg");
       toast.error("Didnt Joined");
     } else {
-      const user = await response.json();
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-      toast.success(" joined");
+      const token = await response.json();
+      localStorage.setItem("token", token);
+      toast.success("joined");
+      push("/");
     }
   };
   const values = {
@@ -92,6 +107,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     user: user,
     setUser: setUser,
     signup: signup,
+    token: token,
+    setToken: setToken,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
