@@ -41,8 +41,28 @@ export default function Home() {
       <div>
         {posts.map((post, index) => {
           return (
-            <div key={index}>
-              <img src={post.images[0]} alt="" />
+            <div
+              key={index}
+              className="w-[100%] h-[739px] flex flex-col gap-[10px]"
+            >
+              <div className="flex items-center gap-[15px]">
+                <div>
+                  <img
+                    src={user?.profilePic}
+                    alt=""
+                    className="w-[42px] h-[42px] rounded-4xl"
+                  />
+                </div>
+                <div>
+                  <h2>{user?.username}</h2>
+                </div>
+              </div>
+              <div className="h-[523px]">
+                <img src={post.images[0]} alt="" className="h-[100%]" />
+              </div>
+              <div>
+                <h1>{post.caption}</h1>
+              </div>
             </div>
           );
         })}
