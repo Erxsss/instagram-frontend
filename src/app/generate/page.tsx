@@ -123,7 +123,7 @@ const Page = () => {
           <img className="rounded-2xl" src={imageUrl} alt="" />
         </div>
         <div>
-          <Button onClick={createPost}>Create Post</Button>
+          <Button onClick={createPost}>Create Post okay</Button>
         </div>
       </div>
     </div>
