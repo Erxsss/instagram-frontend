@@ -18,6 +18,8 @@ type User = {
   username: string;
   bio: string | null;
   profilePic: string | null;
+  following: string[];
+  followers: string[];
 };
 type contextType = {
   login: (email: string, password: string) => Promise<void>;

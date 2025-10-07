@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "@/provider/AuthProvider";
 import { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Instagram } from "lucide-react";
 type userType = {
   username: string;
   email: string;
@@ -54,14 +55,17 @@ const Page = () => {
     router.push("/");
   };
   return (
-    <div>
-      <div className="flex">
+    <div className="w-[100vw] h-[100vh]">
+      <div className="flex w-[100%] h-[70%] flex-col justify-center items-center gap-[10px] pt-[200px]">
+        <div>
+          <Instagram className="w-[70px] h-[70px] mb-[20px]" />
+        </div>
         <div>
           <Input
             type="text"
             value={newUser.username}
             onChange={(e) => handleInput(e)}
-            placeholder="Enter"
+            placeholder="Enter your username"
             name="username"
           />
         </div>
@@ -70,7 +74,7 @@ const Page = () => {
             type="text"
             value={newUser.email}
             onChange={(e) => handleInput(e)}
-            placeholder="Enter"
+            placeholder="Enter your email"
             name="email"
           />
         </div>
@@ -79,7 +83,7 @@ const Page = () => {
             type="password"
             value={newUser.password}
             onChange={(e) => handleInput(e)}
-            placeholder="Enter"
+            placeholder="Enter your password"
             name="password"
           />
         </div>
@@ -88,12 +92,20 @@ const Page = () => {
             type="text"
             value={newUser.bio}
             onChange={(e) => handleInput(e)}
-            placeholder="Enter"
+            placeholder="Enter your bio"
             name="bio"
           />
         </div>
-        <div>
-          <Button onClick={() => handleSignUp()}>Create User</Button>
+        <div className="w-[200px]">
+          <Button onClick={() => handleSignUp()} className="w-[100%]">
+            Create User
+          </Button>
+        </div>
+        <div className="flex gap-[5px]">
+          <h1 className="text-[20px] font-bold">Have an account?</h1>
+          <a href="login" className="text-[20px] font-bold text-sky-500">
+            Log in
+          </a>
         </div>
       </div>
     </div>

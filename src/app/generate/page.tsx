@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
 const Page = () => {
-  const { user, token } = useUser();
+  const { token } = useUser();
   const [inputValue, setInputValue] = useState<string>("");
   const router = useRouter();
   const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
