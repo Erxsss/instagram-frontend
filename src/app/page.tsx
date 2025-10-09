@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import { headerIcon as HeaderIcon } from "./_components/HeaderIcon";
 import { footerIcon as FooterIcon } from "./_components/footer";
 import { Heart, MessageCircle } from "lucide-react";
+import { toast } from "sonner";
 export default function Home() {
   const { user, token } = useUser();
   const router = useRouter();
   const [posts, setPost] = useState([]);
+  const myId = user?._id;
   const findPost = async () => {
     const response = await fetch("http://localhost:5555/post/posts", {
       method: "GET",
@@ -24,7 +26,19 @@ export default function Home() {
   useEffect(() => {
     findPost();
   }, []);
-
+  const toggleLike = async (postId: string) => {
+    const res = await fetch(`http://localhost:5555/post/postLike/${postId}`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    if (res.ok) {
+      await findPost();
+    } else {
+      toast.error("Like avlaa");
+    }
+  };
   useEffect(() => {
     console.log(user);
     if (!user) {
@@ -60,7 +74,14 @@ export default function Home() {
                 <img src={post.images[0]} alt="" className="h-[100%]" />
               </div>
               <div className="flex gap-[10px] mx-[10px]">
-                <Heart className="w-[23px] h-[23px]" />
+                <div className="text-[17px] font-bold">{post.like.length}</div>
+                <div onClick={() => toggleLike(post._id)}>
+                  {post.like.includes(myId) ? (
+                    <Heart fill="red" color="red" />
+                  ) : (
+                    <Heart />
+                  )}
+                </div>
                 <MessageCircle className="w-[20px] h-[20px]" />
               </div>
               <div className="p-[10px]">

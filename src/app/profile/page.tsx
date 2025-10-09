@@ -64,11 +64,15 @@ const Page = () => {
           <Button className="w-[90%]">Message</Button>
         </div>
       </div>
-      <div className="flex flex-wrap gap-[2px] p-[2px] border-2 rounded-2xl">
+      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px]">
         {posts.map((post, index) => {
           return (
             <div key={index}>
-              <img src={post.images} alt="" className="w-[133px] h-[188px]" />
+              <img
+                src={post.images}
+                alt=""
+                className="w-[130px] h-[170px] rounded-2xl"
+              />
             </div>
           );
         })}
