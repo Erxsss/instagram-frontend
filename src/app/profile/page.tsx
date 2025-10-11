@@ -1,12 +1,21 @@
 "use client";
-import { useUser } from "@/provider/AuthProvider";
+import { useUser, user } from "@/provider/AuthProvider";
 import { footerIcon as FooterIcon } from "../_components/footer";
 import { ArrowBigLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+type postType = {
+  _id: string;
+  caption: string;
+  images: string[];
+  like: string[];
+  userId: user;
+};
 const Page = () => {
   const { user, token } = useUser();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<postType[]>([]);
+  const router = useRouter();
   const findUser = async () => {
     const response = await fetch("http://localhost:5555/post/userPosts", {
       method: "GET",
@@ -25,7 +34,7 @@ const Page = () => {
     <div className="w-screen h-screen flex flex-col pt-[10px]">
       <div className="w-screen h-[5%] flex gap-[30px] ">
         <div className="flex w-[60%] justify-between">
-          <div className="left-0">
+          <div className="left-0" onClick={() => router.push("/")}>
             <ArrowBigLeft className="h-[100%] w-[100%]" />
           </div>
           <div className="text-[20px] m-[10px]">{user?.username}</div>
@@ -44,11 +53,11 @@ const Page = () => {
           <div className=" text-gray-600 ">Post</div>
         </div>
         <div>
-          <div className="flex justify-center">1234</div>
+          <div className="flex justify-center">{user?.followers.length}</div>
           <div className=" text-gray-600 ">Followers</div>
         </div>
         <div>
-          <div className="flex justify-center">1234</div>
+          <div className="flex justify-center">{user?.following.length}</div>
           <div className=" text-gray-600 ">Following</div>
         </div>
       </div>

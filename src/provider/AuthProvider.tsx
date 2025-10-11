@@ -105,6 +105,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
   const values = {
+    // User: User,
     login: login,
     user: user,
     setUser: setUser,
