@@ -91,10 +91,13 @@ export default function Home() {
                     src={post.userId?.profilePic}
                     alt=""
                     className="w-[42px] h-[42px] rounded-4xl"
+                    onClick={() => router.push(`pro/${post.userId._id}`)}
                   />
                 </div>
                 <div>
-                  <h2>{post.userId?.username}</h2>
+                  <h2 onClick={() => router.push(`pro/${post.userId._id}`)}>
+                    {post.userId?.username}
+                  </h2>
                 </div>
                 <div>
                   {post.userId.followers.includes(myId) ? (
