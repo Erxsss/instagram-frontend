@@ -135,7 +135,7 @@ export default function Home() {
                 <MessageCircle className="w-[20px] h-[20px]" />
               </div>
               <div className="p-[10px]">
-                <h1 className="text-[20px]">{post.caption} hi</h1>
+                <h1 className="text-[20px]">{post.caption}</h1>
               </div>
             </div>
           );
