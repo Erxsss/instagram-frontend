@@ -29,7 +29,7 @@ const Page = () => {
   };
   useEffect(() => {
     findUser();
-  }, []);
+  }, [token]);
   return (
     <div className="w-screen h-screen flex flex-col pt-[10px]">
       <div className="w-screen h-[5%] flex gap-[30px] ">
@@ -49,7 +49,7 @@ const Page = () => {
           />
         </div>
         <div className="">
-          <div className="flex justify-center">1234</div>
+          <div className="flex justify-center">{posts.length}</div>
           <div className=" text-gray-600 ">Post</div>
         </div>
         <div>

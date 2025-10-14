@@ -7,7 +7,10 @@ export const footerIcon = () => {
   return (
     <div className="flex fixed bottom-0 w-screen h-[7%] bg-white justify-around items-center">
       <House className="w-[30px] h-[30px]" onClick={() => router.push("/")} />
-      <Search className="w-[30px] h-[30px]" />
+      <Search
+        className="w-[30px] h-[30px]"
+        onClick={() => router.push("/Search")}
+      />
       <CircleFadingPlus
         className="w-[30px] h-[30px]"
         onClick={() => router.push("Generate-Post")}

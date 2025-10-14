@@ -91,11 +91,11 @@ export default function Home() {
                     src={post.userId?.profilePic}
                     alt=""
                     className="w-[42px] h-[42px] rounded-4xl"
-                    onClick={() => router.push(`pro/${post.userId._id}`)}
+                    onClick={() => router.push(`/pro/${post.userId._id}`)}
                   />
                 </div>
                 <div>
-                  <h2 onClick={() => router.push(`pro/${post.userId._id}`)}>
+                  <h2 onClick={() => router.push(`/pro/${post.userId._id}`)}>
                     {post.userId?.username}
                   </h2>
                 </div>

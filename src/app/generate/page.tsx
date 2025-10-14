@@ -39,7 +39,7 @@ const Page = () => {
             parameter: {
               negative_prompt: "blurry , bad quality,disorted",
               num_inference_steps: 20,
-              guidance_scale: 8.6,
+              guidance_scale: 7.6,
             },
           }),
         }
