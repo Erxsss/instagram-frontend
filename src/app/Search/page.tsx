@@ -32,56 +32,55 @@ const Search = () => {
   console.log(users);
   return (
     <div className="w-screen h-screen flex flex-col">
-      {" "}
+      
       <div className="flex w-screen h-[60px] p-[10px] items-center justify-around">
-        {" "}
+        
         <div>
-          {" "}
-          <ArrowLeft />{" "}
-        </div>{" "}
+          
+          <ArrowLeft />
+        </div>
         <div className="bg-gray-200 flex rounded-[10px] h-[100%] px-[20px] items-center gap-[15px]">
-          {" "}
-          <SearchCheck color="gray" />{" "}
+          
+          <SearchCheck color="gray" />
           <input
             type="text"
             className="h-[30px] w-[170px] rounded-[10px]"
             placeholder="Enter Username"
             value={input}
             onChange={(e) => handleInputValue(e)}
-          />{" "}
-        </div>{" "}
-        <div>Cancel</div>{" "}
-      </div>{" "}
+          />
+        </div>
+        <div>Cancel</div>
+      </div>
       <div className="flex gap-[10px]">
-        {" "}
+        
         {users.map((user) => {
           return (
             <div
               key={user._id}
-              className="flex  w-[100%] justify-evenly items-center"
+              className="flex  w-[100%] justify-evenly iwtems-center"
             >
-              {" "}
+              
               <div className="w-[60px] h-[60px] ">
-                {" "}
+                
                 <img
                   src={user.profilePic}
                   alt=""
                   className="rounded-[100%]"
                   onClick={() => router.push(`/pro/${user._id}`)}
-                />{" "}
-              </div>{" "}
+                  />
+                  </div>
               <div
                 className="font-bold text-[30px]"
                 onClick={() => router.push(`/pro/${user._id}`)}
               >
-                {" "}
-                {user.username}{" "}
-              </div>{" "}
+                {user.username}
+              </div>
             </div>
           );
-        })}{" "}
-      </div>{" "}
-      <FooterIcon />{" "}
+        })}
+      </div>
+      <FooterIcon />
     </div>
   );
 };

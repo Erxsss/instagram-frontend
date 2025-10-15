@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft } from "lucide-react";
+import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 import { footerIcon as FooterIcon } from "../../_components/footer";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -71,23 +71,22 @@ const Page = () => {
       }
     );
     if (res.ok) {
-      toast.success("Followed");
     } else {
       toast.error("Cant follow yourself");
     }
     seeProfile();
   };
   useEffect(() => {
-    if (token) seeProfile();
-    if (token) seePost();
-  }, [token]);
+    seeProfile();
+    seePost();
+  }, []);
 
   return (
     <div className="w-screen h-screen flex flex-col pt-[10px]">
       <div className="w-screen h-[5%] flex gap-[30px] ">
         <div className="flex w-[60%] justify-between">
           <div className="left-0" onClick={() => router.push("/")}>
-            <ArrowBigLeft className="h-[100%] w-[100%]" />
+            <ArrowLeft className="h-[100%] w-[100%]" />
           </div>
           <div className="text-[20px] m-[10px]">{userS?.username}</div>
         </div>
@@ -136,7 +135,7 @@ const Page = () => {
           <Button className="w-[90%]">Message</Button>
         </div>
       </div>
-      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px]">
+      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px] pb-[70px]">
         {posts.map((post, index) => {
           return (
             <div key={index}>

@@ -1,7 +1,7 @@
 "use client";
 import { useUser, user } from "@/provider/AuthProvider";
 import { footerIcon as FooterIcon } from "../_components/footer";
-import { ArrowBigLeft } from "lucide-react";
+import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -29,13 +29,13 @@ const Page = () => {
   };
   useEffect(() => {
     findUser();
-  }, [token]);
+  }, []);
   return (
     <div className="w-screen h-screen flex flex-col pt-[10px]">
       <div className="w-screen h-[5%] flex gap-[30px] ">
         <div className="flex w-[60%] justify-between">
           <div className="left-0" onClick={() => router.push("/")}>
-            <ArrowBigLeft className="h-[100%] w-[100%]" />
+            <ArrowLeft className="h-[100%] w-[100%]" />
           </div>
           <div className="text-[20px] m-[10px]">{user?.username}</div>
         </div>
@@ -73,7 +73,7 @@ const Page = () => {
           <Button className="w-[90%]">Message</Button>
         </div>
       </div>
-      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px]">
+      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px] pb-[70px]">
         {posts.map((post, index) => {
           return (
             <div key={index}>
@@ -81,6 +81,7 @@ const Page = () => {
                 src={post.images}
                 alt=""
                 className="w-[130px] h-[170px] rounded-2xl"
+                onClick={() => router.push(`/post/${post._id}`)}
               />
             </div>
           );
