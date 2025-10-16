@@ -11,7 +11,7 @@ import {
   SetStateAction,
 } from "react";
 import { toast } from "sonner";
-type User = {
+export type User = {
   _id: string;
   email: string;
   password: string;

@@ -24,7 +24,7 @@ type postType = {
   userId: user;
 };
 const Page = () => {
-  const [userS, setUser] = useState<user | undefined>();
+  const [userS, setUser] = useState<user>();
   const { token, user } = useUser();
   const params = useParams();
   const [posts, setPosts] = useState<postType[]>([]);
@@ -58,8 +58,6 @@ const Page = () => {
     }
   };
   const followUser = async (followingUserId: string) => {
-    console.log(followingUserId);
-    console.log(token);
     const res = await fetch(
       `http://localhost:5555/user/followToggle/${followingUserId}`,
       {
@@ -143,6 +141,7 @@ const Page = () => {
                 src={post.images}
                 alt=""
                 className="w-[130px] h-[170px] rounded-2xl"
+                onClick={() => router.push(`/post/${post._id}`)}
               />
             </div>
           );
