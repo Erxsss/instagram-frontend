@@ -1,5 +1,5 @@
 "use client";
-import { useUser, user } from "@/provider/AuthProvider";
+import { useUser, User } from "@/provider/AuthProvider";
 import { footerIcon as FooterIcon } from "../_components/footer";
 import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ type postType = {
   caption: string;
   images: string[];
   like: string[];
-  userId: user;
+  userId: User;
 };
 const Page = () => {
   const { user, token } = useUser();
