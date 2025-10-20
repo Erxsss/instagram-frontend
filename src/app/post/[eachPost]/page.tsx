@@ -122,7 +122,10 @@ const Page = () => {
             <Heart />
           )}
         </div>
-        <MessageCircle className="w-[20px] h-[20px]" />
+        <MessageCircle
+          className="w-[20px] h-[20px]"
+          onClick={() => router.push(`/comment/${post._id}`)}
+        />
       </div>
       <div className="p-[10px]">
         <h1 className="text-[20px]">{post?.caption}</h1>

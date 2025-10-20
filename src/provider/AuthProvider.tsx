@@ -50,8 +50,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       const decodedToken: decodedToken = jwtDecode(localToken);
       setToken(localToken);
       setUser(decodedToken.data);
+    } else {
+      push("/login");
     }
   }, []);
+
   console.log(user);
 
   const signup = async (

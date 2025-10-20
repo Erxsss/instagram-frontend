@@ -4,27 +4,18 @@ import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 import { footerIcon as FooterIcon } from "../../_components/footer";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useUser } from "@/provider/AuthProvider";
+import { useUser, User } from "@/provider/AuthProvider";
 import { toast } from "sonner";
-type user = {
-  _id: string;
-  email: string;
-  password: string;
-  username: string;
-  bio: string | null;
-  profilePic: string | null;
-  following: string[];
-  followers: string[];
-};
+
 type postType = {
   _id: string;
   caption: string;
   images: string[];
   like: string[];
-  userId: user;
+  userId: User;
 };
 const Page = () => {
-  const [userS, setUser] = useState<user>();
+  const [userS, setUser] = useState<User>();
   const { token, user } = useUser();
   const params = useParams();
   const [posts, setPosts] = useState<postType[]>([]);

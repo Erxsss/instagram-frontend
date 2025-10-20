@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useUser, user } from "@/provider/AuthProvider";
+import { useUser, User } from "@/provider/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { headerIcon as HeaderIcon } from "./_components/HeaderIcon";
@@ -12,13 +12,13 @@ type postType = {
   caption: string;
   images: string[];
   like: string[];
-  userId: user;
+  userId: User;
 };
 export default function Home() {
   const { user, token } = useUser();
   const router = useRouter();
   const [posts, setPost] = useState<postType[]>([]);
-  const myId: string | undefined = user?._id;
+  const myId = user?._id;
   const findPost = async () => {
     const response = await fetch("http://localhost:5555/post/posts", {
       method: "GET",

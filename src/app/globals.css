@@ -129,3 +129,6 @@
     rgba(253, 187, 45, 1) 100%
   );
 }
+.edit {
+  background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+}

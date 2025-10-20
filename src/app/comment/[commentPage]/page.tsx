@@ -17,7 +17,7 @@ const Page = () => {
   const router = useRouter();
   const [comments, setComments] = useState<comment[]>([]);
   const [input, setInput] = useState<string>("");
-  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setInput(value);
   };
@@ -29,7 +29,6 @@ const Page = () => {
       method: "GET",
       headers: {
         authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
       },
     });
     if (res.ok) {
@@ -45,7 +44,7 @@ const Page = () => {
       method: "POST",
       headers: {
         authorization: `Bearer ${token}`,
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         postId: post,
@@ -88,12 +87,12 @@ const Page = () => {
           <Smile />
         </div>
         <div className="w-[60%] h-[100%]">
-          <input
+          <textarea
             type="text"
             onChange={(e) => handleInput(e)}
             value={input}
             className="w-[100%] h-[100%]"
-          />
+          ></textarea>
         </div>
         <div className="w-[20%] flex justify-center items-center">
           <div
