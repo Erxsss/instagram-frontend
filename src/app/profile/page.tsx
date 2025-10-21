@@ -48,13 +48,16 @@ const Page = () => {
         username: input.username,
       }),
     });
+    const editedUser = await res.json();
+    console.log(editedUser);
+    setUser(editedUser);
   };
   const showEdit = () => {
     setShow(true);
   };
   useEffect(() => {
-    findUser();
-  }, []);
+    if (token) findUser();
+  }, [token]);
   const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === "bio") {
