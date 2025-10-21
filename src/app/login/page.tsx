@@ -13,7 +13,7 @@ type userType = {
 };
 const Page = () => {
   const router = useRouter();
-  const { login, user } = useUser();
+  const { login, token } = useUser();
   const [userInfo, setUserInfo] = useState<userType>({
     email: "",
     password: "",
@@ -38,10 +38,10 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if (user) {
+    if (token) {
       router.push("/");
     }
-  }, [user]);
+  }, [token]);
 
   return (
     <div className="flex w-[100vw] h-[100vh] flex-col">

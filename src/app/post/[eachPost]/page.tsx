@@ -7,6 +7,18 @@ import { useEffect, useState } from "react";
 import { Heart, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 type postType = {
   _id: string;
   caption: string;
@@ -52,6 +64,16 @@ const Page = () => {
       toast.error("Like avlaa");
     }
   };
+  const deletePost = async (postId: string) => {
+    await fetch(`http://localhost:5555/post/deletePost/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    router.push("/");
+  };
   const followUser = async (followingUserId: string) => {
     console.log(followingUserId);
     console.log(token);
@@ -89,25 +111,39 @@ const Page = () => {
             {post?.userId?.username}
           </h2>
         </div>
-        <div>
-          {post?.userId.followers.includes(myId) ? (
-            <Button
-              onClick={() => {
-                followUser(post.userId._id);
-              }}
-              className="bg-gray-400"
-            >
-              Unfollow
-            </Button>
-          ) : (
-            <Button
-              onClick={() => {
-                followUser(post.userId._id);
-              }}
-            >
-              Follow
-            </Button>
-          )}
+        <div className="flex gap-[20px]">
+          <div>
+            {post?.userId.followers.includes(myId) ? (
+              <Button
+                onClick={() => {
+                  followUser(post.userId._id);
+                }}
+                className="bg-gray-400"
+              >
+                Unfollow
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  followUser(post.userId._id);
+                }}
+              >
+                Follow
+              </Button>
+            )}
+          </div>
+          <div>
+            {post?.userId._id == myId ? (
+              <Button
+                className="bg-red-600"
+                onClick={() => deletePost(post?._id)}
+              >
+                Delete
+              </Button>
+            ) : (
+              <div></div>
+            )}
+          </div>
         </div>
       </div>
       <div className="h-[523px]">

@@ -5,6 +5,18 @@ import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 type postType = {
   _id: string;
   caption: string;
@@ -13,15 +25,9 @@ type postType = {
   userId: User;
 };
 const Page = () => {
-  const { user, token, setUser } = useUser();
-  const [input, setInput] = useState({
-    bio: `${user?.bio}`,
-    email: `${user?.email}`,
-    profilePic: `${user?.profilePic}`,
-    username: `${user?.username}`,
-  });
+  const { user, myBigId, token, setUser } = useUser();
+  const [userr, setUserr] = useState<User>();
   const [posts, setPosts] = useState<postType[]>([]);
-  const [show, setShow] = useState(false);
   const router = useRouter();
   const findUser = async () => {
     const response = await fetch("http://localhost:5555/post/userPosts", {
@@ -33,6 +39,17 @@ const Page = () => {
     });
     const res = await response.json();
     setPosts(res);
+  };
+  const findUserPro = async () => {
+    const response = await fetch(`http://localhost:5555/user/pro/${myBigId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const usr = await response.json();
+    setUserr(usr);
   };
   const editUser = async () => {
     const res = await fetch(`http://localhost:5555/user/edit`, {
@@ -51,14 +68,24 @@ const Page = () => {
     const editedUser = await res.json();
     console.log(editedUser);
     setUser(editedUser);
+    setUserr(editedUser);
   };
-  const showEdit = () => {
-    setShow(true);
+  console.log(user);
+  const logOut = () => {
+    localStorage.removeItem("token");
+    router.push("login");
   };
   useEffect(() => {
     if (token) findUser();
+    if (token) findUserPro();
   }, [token]);
-  const handleInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const [input, setInput] = useState({
+    bio: `${user?.bio}`,
+    email: `${user?.email}`,
+    profilePic: `${user?.profilePic}`,
+    username: `${user?.username}`,
+  });
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "bio") {
       setInput((prev) => {
@@ -84,76 +111,18 @@ const Page = () => {
   console.log(input);
   return (
     <div className="w-screen h-screen flex flex-col pt-[10px] relative">
-      {show && (
-        <div className="w-[100%] h-[100%] flex justify-center items-center absolute">
-          <div className="w-[80%] h-[70%] z-50  border-6 rounded-4xl m-[5px] p-[50px] edit border-black gap-[10px]">
-            <div>
-              <h1 className="text-[30px]">Enter Bio</h1>
-              <textarea
-                name="bio"
-                id=""
-                className="border-4 rounded-2xl border-black"
-                onChange={(e) => handleInput(e)}
-                value={input.bio}
-              ></textarea>
-            </div>
-            <div>
-              <h1 className="text-[30px]">Enter Username</h1>
-              <textarea
-                name="username"
-                id=""
-                className="border-4 rounded-2xl border-black"
-                onChange={(e) => handleInput(e)}
-                value={input.username}
-              ></textarea>
-            </div>
-            <div>
-              <h1 className="text-[30px]">Enter Email</h1>
-              <textarea
-                name="email"
-                id=""
-                className="border-4 rounded-2xl border-black"
-                onChange={(e) => handleInput(e)}
-                value={input.email}
-              ></textarea>
-            </div>
-            <div>
-              <h1 className="text-[27px]">Enter ProfilePicture</h1>
-              <textarea
-                name="profile"
-                id=""
-                className="border-4 rounded-2xl border-black"
-                onChange={(e) => handleInput(e)}
-                value={input.profilePic}
-              ></textarea>
-            </div>
-            <Button
-              className="w-[180px] h-[40px] mt-[10px]"
-              onClick={() => editUser()}
-            >
-              Edit Profile
-            </Button>
-            <Button
-              className="w-[180px] h-[40px] mt-[10px]"
-              onClick={() => setShow(false)}
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
-      )}
       <div className="w-screen h-[5%] flex gap-[30px] ">
         <div className="flex w-[60%] justify-between">
           <div className="left-0" onClick={() => router.push("/")}>
             <ArrowLeft className="h-[100%] w-[100%]" />
           </div>
-          <div className="text-[20px] m-[10px]">{user?.username}</div>
+          <div className="text-[20px] m-[10px]">{userr?.username}</div>
         </div>
       </div>
       <div className="flex justify-around p-[10px] items-center w-[100%] h-[15%]">
         <div>
           <img
-            src={user?.profilePic}
+            src={userr?.profilePic}
             alt=""
             className="w-[100px] h-[100px] rounded-[100%] border-4"
           />
@@ -163,26 +132,89 @@ const Page = () => {
           <div className=" text-gray-600 ">Post</div>
         </div>
         <div>
-          <div className="flex justify-center">{user?.followers.length}</div>
+          <div className="flex justify-center">{userr?.followers.length}</div>
           <div className=" text-gray-600 ">Followers</div>
         </div>
         <div>
-          <div className="flex justify-center">{user?.following.length}</div>
+          <div className="flex justify-center">{userr?.following.length}</div>
           <div className=" text-gray-600 ">Following</div>
         </div>
       </div>
       <div className="flex w-[100%] h-[10%] p-[10px] flex-col gap-[10px]">
-        <div className="flex justify-center w-[35%]">{user?.username}</div>
-        <div className="flex w-[50%] h-[80%] text-[10px]">{user?.bio}</div>
+        <div className="flex justify-center w-[35%]">{userr?.username}</div>
+        <div className="flex w-[50%] h-[80%] text-[10px]">{userr?.bio}</div>
       </div>
       <div className="flex w-[100%] p-[10px] justify-around">
         <div className="w-[50%]">
-          <Button className="w-[90%] bg-sky-600" onClick={() => showEdit()}>
-            Edit Profile
-          </Button>
+          <Dialog>
+            <form>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-[200px]">
+                  Edit Profile
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Edit profile</DialogTitle>
+                  <DialogDescription>
+                    Make changes to your profile here. Click save when
+                    you&apos;re done.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4">
+                  <div className="grid gap-3">
+                    <Label htmlFor="name-1">Bio</Label>
+                    <Input
+                      id="name-1"
+                      name="bio"
+                      defaultValue={input.bio}
+                      onChange={(e) => handleInput(e)}
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="username-1">Username</Label>
+                    <Input
+                      id="username-1"
+                      name="username"
+                      defaultValue={input.username}
+                      onChange={(e) => handleInput(e)}
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="username-1">Email</Label>
+                    <Input
+                      id="username-1"
+                      name="username"
+                      defaultValue={input.email}
+                      onChange={(e) => handleInput(e)}
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="username-1">Profile Picture</Label>
+                    <Input
+                      id="username-1"
+                      name="username"
+                      defaultValue={input.profilePic}
+                      onChange={(e) => handleInput(e)}
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button type="submit" onClick={() => editUser()}>
+                    Save changes
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </form>
+          </Dialog>
         </div>
         <div className="w-[50%]">
-          <Button className="w-[90%]">Message</Button>
+          <Button className="w-[90%]" onClick={() => logOut()}>
+            Message
+          </Button>
         </div>
       </div>
       <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px] pb-[70px]">
@@ -204,3 +236,5 @@ const Page = () => {
   );
 };
 export default Page;
+
+// Fall@2024!

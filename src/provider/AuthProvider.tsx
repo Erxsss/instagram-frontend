@@ -33,6 +33,7 @@ type contextType = {
   setUser: Dispatch<SetStateAction<null | User>>;
   token: string | null;
   setToken: Dispatch<SetStateAction<null | string>>;
+  myBigId: string | null;
 };
 type decodedToken = {
   data: User;
@@ -56,7 +57,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   console.log(user);
-
+  const myBigId = user?._id;
   const signup = async (
     username: string,
     email: string,
@@ -108,13 +109,13 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   };
   const values = {
-    // User: User,
     login: login,
     user: user,
     setUser: setUser,
     signup: signup,
     token: token,
     setToken: setToken,
+    myBigId: myBigId,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

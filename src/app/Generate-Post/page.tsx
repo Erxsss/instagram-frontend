@@ -4,6 +4,8 @@ import { headerIcon as HeaderIcon } from "../_components/HeaderIcon";
 import { useRouter } from "next/navigation";
 import { footerIcon as FooterIcon } from "../_components/footer";
 import { Image } from "lucide-react";
+import { ChangeEvent, useState } from "react";
+import { upload } from "@vercel/blob/client";
 const Page = () => {
   const router = useRouter();
   return (
@@ -14,10 +16,14 @@ const Page = () => {
           <Image className="w-[100px] h-[100px]" />
         </div>
         <div>
-          <Button>Photo Library</Button>
+          <Button onClick={() => router.push("/file")}>
+            Upload From Computer
+          </Button>
         </div>
         <div>
-          <Button onClick={() => router.push("generate")}>generate with</Button>
+          <Button className="w-[185px]" onClick={() => router.push("generate")}>
+            generate with AI
+          </Button>
         </div>
       </div>
       <FooterIcon />

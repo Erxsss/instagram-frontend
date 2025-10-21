@@ -13,7 +13,7 @@ type comment = {
   user: User;
 };
 const Page = () => {
-  const { token } = useUser();
+  const { token, user } = useUser();
   const router = useRouter();
   const [comments, setComments] = useState<comment[]>([]);
   const [input, setInput] = useState<string>("");
@@ -35,6 +35,17 @@ const Page = () => {
       const comments = await res.json();
       setComments(comments);
     }
+  };
+  const deleteCom = async (comId: string) => {
+    console.log(comId, "joooo");
+    await fetch(`http://localhost:5555/comment/deleteCom/${comId}`, {
+      method: "DELETE",
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+    seeCom();
   };
   useEffect(() => {
     if (token) seeCom();
@@ -68,7 +79,7 @@ const Page = () => {
       <div className="flex flex-col gap-[20px] w-screen h-[80%] p-[10px] overflow-scroll">
         {comments.map((com) => {
           return (
-            <div key={com._id} className="gap-[5px]">
+            <div key={com._id} className="gap-[5px] flex flex-col">
               <div className="flex gap-[10px] items-center">
                 <img
                   src={com.user.profilePic}
@@ -77,7 +88,21 @@ const Page = () => {
                 />
                 <h1 className="font-bold">{com.user.username}</h1>
               </div>
-              <div className="text-[20px]">{com.comment}</div>
+              <div className="flex gap-[10px]">
+                <div className="text-[20px]">{com.comment}</div>
+                <div>
+                  {com.user._id == user?._id ? (
+                    <Button
+                      className="bg-red-600"
+                      onClick={() => deleteCom(com._id)}
+                    >
+                      Delete
+                    </Button>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+              </div>
             </div>
           );
         })}
