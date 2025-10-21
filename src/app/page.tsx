@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { headerIcon as HeaderIcon } from "./_components/HeaderIcon";
 import { footerIcon as FooterIcon } from "./_components/footer";
 import { Heart, MessageCircle } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
 type postType = {
   _id: string;
@@ -87,12 +88,13 @@ export default function Home() {
             >
               <div className="flex items-center gap-[15px]">
                 <div>
-                  <img
-                    src={post.userId?.profilePic}
-                    alt=""
-                    className="w-[42px] h-[42px] rounded-4xl"
-                    onClick={() => router.push(`/pro/${post.userId._id}`)}
-                  />
+                  <Avatar className="w-[42px] h-[42px] rounded-4xl">
+                    <AvatarImage
+                      src={post.userId?.profilePic}
+                      onClick={() => router.push(`/pro/${post.userId._id}`)}
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
                 </div>
                 <div>
                   <h2 onClick={() => router.push(`/pro/${post.userId._id}`)}>
