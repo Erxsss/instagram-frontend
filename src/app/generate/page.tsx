@@ -5,16 +5,18 @@ import { useUser } from "@/provider/AuthProvider";
 import { upload } from "@vercel/blob/client";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
-
+import { headerIcon as HeaderIcon } from "../_components/HeaderIcon";
+import { footerIcon as FooterIcon } from "../_components/footer";
+import { Textarea } from "@/components/ui/textarea";
 const Page = () => {
   const { token } = useUser();
   const [inputValue, setInputValue] = useState<string>("");
   const router = useRouter();
-  const handleInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setInputValue(value);
   };
-  const [imageUrl, setImageUrl] = useState("");
+  const [photos, setPhotos] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [caption, setCaption] = useState("");
   const API_KEY = process.env.API_KEY;
@@ -23,7 +25,6 @@ const Page = () => {
     setInputValue("");
     if (!inputValue.trim()) return;
     setIsLoading(true);
-    setImageUrl("");
     try {
       const headers = {
         "Content-Type": "application/json",
@@ -55,17 +56,12 @@ const Page = () => {
       });
       const imageUrl = uploaded.url;
       console.log(uploaded);
-      setImageUrl(imageUrl);
+      setPhotos((prev) => [...prev, imageUrl]);
     } catch (err) {
       setIsLoading(false);
     }
   };
   console.log(caption);
-  const isEnterPressed = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      generateImage();
-    }
-  };
 
   const createPost = async () => {
     await fetch("http://localhost:5555/post/create", {
@@ -76,15 +72,16 @@ const Page = () => {
       },
       body: JSON.stringify({
         caption: caption,
-        images: imageUrl,
+        images: photos,
       }),
     });
     router.push("/");
   };
-  console.log(imageUrl);
+  console.log(photos);
   return (
-    <div className="w-[100vw] h-[100vh] p-[20px] ">
-      <div className="flex flex-col gap-[5px]">
+    <div className="w-[100vw] h-[100vh]">
+      <HeaderIcon />
+      <div className="flex flex-col gap-[5px] p-[10px]">
         <div>
           <h1 className="font-bold text-[20px]">Explore AI Generated Images</h1>
         </div>
@@ -94,38 +91,45 @@ const Page = () => {
           </p>
         </div>
         <div>
-          <Input
+          <Textarea
             onChange={(e) => handleInputValue(e)}
             placeholder="Please Enter Your Prompt"
-            className="w-[398px] h-[102px]"
-            disabled={isLoading}
+            className="w-[398px] h-[102px] border-4 border-black"
             value={inputValue}
-            onKeyDown={(e) => isEnterPressed(e)}
-          />
-        </div>
-        <div>
-          <Input
-            placeholder="Please Enter Caption"
-            value={caption}
-            onChange={(e) => setCaption(e.target.value)}
           />
         </div>
         <div className="flex justify-center mt-[5px] ">
-          <Button
-            onClick={generateImage}
-            disabled={!inputValue.trim() || isLoading}
-            className="gButton"
-          >
+          <Button onClick={generateImage} className="gButton w-[60%] h-[40px]">
             Generate
           </Button>
         </div>
-        <div>
-          <img className="rounded-2xl" src={imageUrl} alt="" />
+        <div className="p-[5px]">
+          <div className="flex border-4 overflow-scroll w-[100%] h-[300px] flex-wrap gap-[5px] p-[5px] border-black">
+            {photos.map((photo, index) => {
+              return (
+                <div key={index}>
+                  <img src={photo} alt="" className="w-[140px] h-[200px]" />
+                </div>
+              );
+              t;
+            })}
+          </div>
         </div>
         <div>
-          <Button onClick={createPost}>Create Post</Button>
+          <Textarea
+            placeholder="Please Enter Caption"
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+            className="border-4 border-black"
+          />
+        </div>
+        <div className="flex justify-center">
+          <Button onClick={createPost} className="w-[60%] h-[40px]">
+            Create Post
+          </Button>
         </div>
       </div>
+      <FooterIcon />
     </div>
   );
 };

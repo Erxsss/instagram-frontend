@@ -40,6 +40,12 @@ const Page = () => {
     const res = await response.json();
     setPosts(res);
   };
+  const [input, setInput] = useState({
+    bio: `${user?.bio}`,
+    email: `${user?.email}`,
+    profilePic: `${user?.profilePic}`,
+    username: `${user?.username}`,
+  });
   const findUserPro = async () => {
     const response = await fetch(`http://localhost:5555/user/pro/${myBigId}`, {
       method: "POST",
@@ -70,7 +76,7 @@ const Page = () => {
     setUser(editedUser);
     setUserr(editedUser);
   };
-  console.log(user);
+  console.log(input);
   const logOut = () => {
     localStorage.removeItem("token");
     router.push("login");
@@ -79,12 +85,6 @@ const Page = () => {
     if (token) findUser();
     if (token) findUserPro();
   }, [token]);
-  const [input, setInput] = useState({
-    bio: `${user?.bio}`,
-    email: `${user?.email}`,
-    profilePic: `${user?.profilePic}`,
-    username: `${user?.username}`,
-  });
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "bio") {
@@ -97,7 +97,7 @@ const Page = () => {
         return { ...prev, username: value };
       });
     }
-    if (name === "profile") {
+    if (name === "profilePic") {
       setInput((prev) => {
         return { ...prev, profilePic: value };
       });
@@ -193,7 +193,7 @@ const Page = () => {
                     <Label htmlFor="username-1">Profile Picture</Label>
                     <Input
                       id="username-1"
-                      name="username"
+                      name="profilePic"
                       defaultValue={input.profilePic}
                       onChange={(e) => handleInput(e)}
                     />
@@ -213,16 +213,16 @@ const Page = () => {
         </div>
         <div className="w-[50%]">
           <Button className="w-[90%]" onClick={() => logOut()}>
-            Message
+            Log Out
           </Button>
         </div>
       </div>
-      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px] pb-[70px]">
+      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px] pb-[70px] overflow-scroll">
         {posts.map((post, index) => {
           return (
             <div key={index}>
-              <img
-                src={post.images}
+              <img  
+                src={post.images[0]}
                 alt=""
                 className="w-[130px] h-[170px] rounded-2xl"
                 onClick={() => router.push(`/post/${post._id}`)}

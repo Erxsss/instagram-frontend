@@ -147,7 +147,7 @@ const Page = () => {
         </div>
       </div>
       <div className="h-[523px]">
-        <img src={post?.images[0]} alt="" className="h-[100%]" />
+        <img src={post?.images[0]} alt="" className="h-[100%] w-screen  " />
       </div>
       <div className="flex gap-[10px] mx-[10px]">
         <div className="text-[17px] font-bold">{post?.like.length}</div>

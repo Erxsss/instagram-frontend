@@ -55,11 +55,11 @@ const Search = () => {
               key={user._id}
               className="flex  w-[100%] justify-evenly iwtems-center"
             >
-              <div className="w-[60px] h-[60px] ">
+              <div className="w-[60px] h-[60px] rounded-[100%]">
                 <img
                   src={user.profilePic}
                   alt=""
-                  className="rounded-[100%]"
+                  className="rounded-[100%] w-[60px] h-[60px]"
                   onClick={() => router.push(`/pro/${user._id}`)}
                 />
               </div>

@@ -16,7 +16,7 @@ type postType = {
   userId: User;
 };
 export default function Home() {
-  const { user, token } = useUser();
+  const { user, token, myBigId } = useUser();
   const router = useRouter();
   const [posts, setPost] = useState<postType[]>([]);
   const myId = user?._id;
@@ -74,17 +74,18 @@ export default function Home() {
       toast.error("Cant follow yourself");
     }
   };
+
   return (
     <div className="w-[100vw] h-[100vh] flex flex-col">
       <div className="fixed top-0 bg-white w-screen">
         <HeaderIcon />
       </div>
-      <div className="w-[100%] h-[80%] mt-[70px]">
+      <div className="w-[100%] h-[100%] mt-[70px] overflow-scroll">
         {posts.map((post, index) => {
           return (
             <div
               key={index}
-              className="w-[100%] h-[739px] flex flex-col gap-[10px]"
+              className="w-[100%] h-[780px] flex flex-col gap-[10px]"
             >
               <div className="flex items-center gap-[15px]">
                 <div>
@@ -102,7 +103,9 @@ export default function Home() {
                   </h2>
                 </div>
                 <div>
-                  {post.userId.followers.includes(myId) ? (
+                  {post.userId._id === myBigId ? (
+                    <div></div>
+                  ) : post.userId.followers.includes(myId) ? (
                     <Button
                       onClick={() => {
                         followUser(post.userId._id);
@@ -123,7 +126,11 @@ export default function Home() {
                 </div>
               </div>
               <div className="h-[523px]">
-                <img src={post.images[0]} alt="" className="h-[100%]" />
+                <img
+                  src={post.images[0]}
+                  alt=""
+                  className="h-[100%] w-screen"
+                />
               </div>
               <div className="flex gap-[10px] mx-[10px]">
                 <div className="text-[17px] font-bold">{post.like.length}</div>

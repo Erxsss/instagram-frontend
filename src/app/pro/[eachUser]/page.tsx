@@ -129,7 +129,7 @@ const Page = () => {
           return (
             <div key={index}>
               <img
-                src={post.images}
+                src={post.images[0]}
                 alt=""
                 className="w-[130px] h-[170px] rounded-2xl"
                 onClick={() => router.push(`/post/${post._id}`)}
