@@ -132,3 +132,27 @@
 .edit {
   background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
 }
+.gra {
+  /* https://grabient.com/HQThGYBpgdgFgGzXkgtABmARneyHgAmdLaHPAxOfTOYm4OtTQu6dAVg+mJiA?style=linearGradient&steps=5&angle=45 */
+
+  background: linear-gradient(
+    45deg,
+    rgba(252, 142, 197, 1) 0%,
+    rgba(255, 141, 211, 1) 25%,
+    rgba(255, 161, 216, 1) 50%,
+    rgba(255, 193, 210, 1) 75%,
+    rgba(255, 224, 195, 1) 100%
+  );
+}
+.bar {
+  /* https://grabient.com/HQThGYBpgdgFgGzXkgtABmARneyHgAmdLaHPAxOfTOYm4OtTQu6dAVg+mJiA?style=linearGradient&steps=5&angle=45 */
+
+  background: linear-gradient(
+    45deg,
+    rgba(252, 142, 197, 1) 0%,
+    rgba(255, 141, 211, 1) 25%,
+    rgba(255, 161, 216, 1) 50%,
+    rgba(255, 193, 210, 1) 75%,
+    rgba(255, 224, 195, 1) 100%
+  );
+}

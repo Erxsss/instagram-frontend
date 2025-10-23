@@ -8,6 +8,7 @@ import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { headerIcon as HeaderIcon } from "../_components/HeaderIcon";
 import { footerIcon as FooterIcon } from "../_components/footer";
 import { Textarea } from "@/components/ui/textarea";
+import { toast, Toaster } from "sonner";
 const Page = () => {
   const { token } = useUser();
   const [inputValue, setInputValue] = useState<string>("");
@@ -57,7 +58,11 @@ const Page = () => {
       const imageUrl = uploaded.url;
       console.log(uploaded);
       setPhotos((prev) => [...prev, imageUrl]);
+      toast("This might take few seconds");
     } catch (err) {
+      toast("This might take few seconds", {
+        style: {},
+      });
       setIsLoading(false);
     }
   };
@@ -79,9 +84,9 @@ const Page = () => {
   };
   console.log(photos);
   return (
-    <div className="w-[100vw] h-[100vh]">
+    <div className="w-[100vw] h-[100vh]  ">
       <HeaderIcon />
-      <div className="flex flex-col gap-[5px] p-[10px]">
+      <div className="flex flex-col gap-[5px] p-[10px] ">
         <div>
           <h1 className="font-bold text-[20px]">Explore AI Generated Images</h1>
         </div>
@@ -99,19 +104,18 @@ const Page = () => {
           />
         </div>
         <div className="flex justify-center mt-[5px] ">
-          <Button onClick={generateImage} className="gButton w-[60%] h-[40px]">
+          <Button onClick={generateImage} className="  w-[60%] h-[40px]">
             Generate
           </Button>
         </div>
         <div className="p-[5px]">
-          <div className="flex border-4 overflow-scroll w-[100%] h-[300px] flex-wrap gap-[5px] p-[5px] border-black">
+          <div className="flex border-4 overflow-scroll w-[100%] h-[300px] flex-wrap gap-[5px] p-[5px] border-black gra">
             {photos.map((photo, index) => {
               return (
                 <div key={index}>
                   <img src={photo} alt="" className="w-[140px] h-[200px]" />
                 </div>
               );
-              t;
             })}
           </div>
         </div>
@@ -129,6 +133,7 @@ const Page = () => {
           </Button>
         </div>
       </div>
+      <Toaster className="bg-green-500" />
       <FooterIcon />
     </div>
   );

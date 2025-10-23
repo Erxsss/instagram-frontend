@@ -65,7 +65,7 @@ const Page = () => {
             <Button onClick={() => add()}>Add</Button>
           </div>
         </div>
-        <div className="flex border-4 overflow-scroll w-[100%] h-[2000px] flex-wrap gap-[5px] p-[5px] border-black">
+        <div className="flex border-4 overflow-scroll w-[100%] h-[2000px] flex-wrap gap-[5px] p-[5px] border-black gra">
           {photos.map((photo, index) => {
             return (
               <div key={index}>

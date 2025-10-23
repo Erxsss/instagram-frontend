@@ -25,7 +25,7 @@ type postType = {
   userId: User;
 };
 const Page = () => {
-  const { user, myBigId, token, setUser } = useUser();
+  const { user, myBigId, token, setUser, setToken } = useUser();
   const [userr, setUserr] = useState<User>();
   const [posts, setPosts] = useState<postType[]>([]);
   const router = useRouter();
@@ -79,6 +79,7 @@ const Page = () => {
   console.log(input);
   const logOut = () => {
     localStorage.removeItem("token");
+    setToken(null);
     router.push("login");
   };
   useEffect(() => {
@@ -140,9 +141,9 @@ const Page = () => {
           <div className=" text-gray-600 ">Following</div>
         </div>
       </div>
-      <div className="flex w-[100%] h-[10%] p-[10px] flex-col gap-[10px]">
+      <div className="flex w-[100%] h-[10%] p-[5px] flex-col gap-[15px]">
         <div className="flex justify-center w-[35%]">{userr?.username}</div>
-        <div className="flex w-[50%] h-[80%] text-[10px]">{userr?.bio}</div>
+        <div className="flex w-[50%] h-[80%] text-[15px]">{userr?.bio}</div>
       </div>
       <div className="flex w-[100%] p-[10px] justify-around">
         <div className="w-[50%]">
@@ -203,9 +204,11 @@ const Page = () => {
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button type="submit" onClick={() => editUser()}>
-                    Save changes
-                  </Button>
+                  <DialogClose asChild>
+                    <Button type="submit" onClick={() => editUser()}>
+                      Save changes
+                    </Button>
+                  </DialogClose>
                 </DialogFooter>
               </DialogContent>
             </form>
@@ -221,7 +224,7 @@ const Page = () => {
         {posts.map((post, index) => {
           return (
             <div key={index}>
-              <img  
+              <img
                 src={post.images[0]}
                 alt=""
                 className="w-[130px] h-[170px] rounded-2xl"

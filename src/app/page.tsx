@@ -31,9 +31,6 @@ export default function Home() {
     const res = await response.json();
     setPost(res);
   };
-  useEffect(() => {
-    findPost();
-  }, []);
   const toggleLike = async (userId: string) => {
     const res = await fetch(`http://localhost:5555/post/postLike/${userId}`, {
       method: "POST",
@@ -44,16 +41,16 @@ export default function Home() {
     });
     if (res.ok) {
       await findPost();
-    } else {
-      toast.error("Like avlaa");
     }
   };
   useEffect(() => {
-    console.log(user);
     if (!user) {
       router.push("/login");
     }
   }, [user]);
+  useEffect(() => {
+    findPost();
+  }, []);
   const followUser = async (followingUserId: string) => {
     console.log(followingUserId);
     console.log(token);
@@ -68,24 +65,21 @@ export default function Home() {
       }
     );
     if (res.ok) {
-      toast.success("Followed");
       findPost();
-    } else {
-      toast.error("Cant follow yourself");
     }
   };
 
   return (
-    <div className="w-[100vw] h-[100vh] flex flex-col">
+    <div className="w-[100vw] h-[100vh] flex flex-col gap-[10px]">
       <div className="fixed top-0 bg-white w-screen">
         <HeaderIcon />
       </div>
-      <div className="w-[100%] h-[100%] mt-[70px] overflow-scroll">
+      <div className="w-[100%] h-[100%] mt-[60px] overflow-scroll p-[5px]">
         {posts.map((post, index) => {
           return (
             <div
               key={index}
-              className="w-[100%] h-[780px] flex flex-col gap-[10px]"
+              className="w-[100%] h-[770px] flex flex-col gap-[10px]"
             >
               <div className="flex items-center gap-[15px]">
                 <div>

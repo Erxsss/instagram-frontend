@@ -36,10 +36,9 @@ const Page = () => {
     await login(userInfo.email, userInfo.password);
     router.push("/");
   };
-
   useEffect(() => {
     if (token) {
-      router.push("/");
+      if (token) router.push("/");
     }
   }, [token]);
 
