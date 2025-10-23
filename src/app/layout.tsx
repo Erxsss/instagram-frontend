@@ -28,9 +28,11 @@ export default function RootLayout({
     <html lang="en">
       <AuthProvider>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased `}
         >
+          {/* <div className="max-w-3xl mx-auto"> */}
           {children}
+          {/* </div> */}
           <Toaster richColors={true} />
         </body>
       </AuthProvider>

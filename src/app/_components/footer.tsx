@@ -13,11 +13,11 @@ export const footerIcon = () => {
       />
       <CircleFadingPlus
         className="w-[30px] h-[30px]"
-        onClick={() => router.push("Generate-Post")}
+        onClick={() => router.push("/Generate-Post")}
       />
       <CircleUser
         className="w-[30px] h-[30px]"
-        onClick={() => router.push("profile")}
+        onClick={() => router.push("/profile")}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 export const headerIcon = () => {
   const router = useRouter();
   return (
-    <div className="w-screen h-[60px] bar">
+    <div className="w-screen h-[60px] bar top-0">
       <img
         src="https://cdn2.downdetector.com/static/uploads/logo/Instagram_Logo_Large.png"
         alt=""

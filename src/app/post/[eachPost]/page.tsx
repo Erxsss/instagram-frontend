@@ -30,7 +30,7 @@ const Page = () => {
   const params = useParams();
   const { token, user } = useUser();
   const router = useRouter();
-  const [post, setPost] = useState<postType>();
+  const [post, setPost] = useState<postType>(null);
   const myId = user?._id;
   const postId = params.eachPost;
   const findPost = async () => {
@@ -95,76 +95,78 @@ const Page = () => {
     }
   };
   return (
-    <div className="w-[100%] h-[739px] flex flex-col gap-[10px]">
+    <div className="flex items-center flex-col">
       <HeaderIcon />
-      <div className="flex items-center gap-[15px]">
-        <div>
-          <img
-            src={post?.userId?.profilePic || undefined}
-            alt=""
-            className="w-[42px] h-[42px] rounded-4xl"
-            onClick={() => router.push(`/pro/${post?.userId._id}`)}
+      <div className="w-[100%] h-[739px] flex flex-col gap-[10px] justify-center">
+        <div className="flex items-center gap-[15px]">
+          <div>
+            <img
+              src={post?.userId?.profilePic || undefined}
+              alt=""
+              className="w-[42px] h-[42px] rounded-4xl"
+              onClick={() => router.push(`/pro/${post?.userId._id}`)}
+            />
+          </div>
+          <div>
+            <h2 onClick={() => router.push(`/pro/${post?.userId._id}`)}>
+              {post?.userId?.username}
+            </h2>
+          </div>
+          <div className="flex gap-[20px]">
+            <div>
+              {post?.userId.followers.includes(myId) ? (
+                <Button
+                  onClick={() => {
+                    followUser(post.userId._id);
+                  }}
+                  className="bg-gray-400"
+                >
+                  Unfollow
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    followUser(post.userId._id);
+                  }}
+                >
+                  Follow
+                </Button>
+              )}
+            </div>
+            <div>
+              {post?.userId._id == myId ? (
+                <Button
+                  className="bg-red-600"
+                  onClick={() => deletePost(post?._id)}
+                >
+                  Delete
+                </Button>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="h-[523px]">
+          <img src={post?.images[0]} alt="" className="h-[100%] w-screen  " />
+        </div>
+        <div className="flex gap-[10px] mx-[10px]">
+          <div className="text-[17px] font-bold">{post?.like.length}</div>
+          <div onClick={() => toggleLike(post._id)}>
+            {myId && post?.like.includes(myId) ? (
+              <Heart fill="red" color="red" />
+            ) : (
+              <Heart />
+            )}
+          </div>
+          <MessageCircle
+            className="w-[20px] h-[20px]"
+            onClick={() => router.push(`/comment/${post._id}`)}
           />
         </div>
-        <div>
-          <h2 onClick={() => router.push(`/pro/${post?.userId._id}`)}>
-            {post?.userId?.username}
-          </h2>
+        <div className="p-[10px]">
+          <h1 className="text-[20px]">{post?.caption}</h1>
         </div>
-        <div className="flex gap-[20px]">
-          <div>
-            {post?.userId.followers.includes(myId) ? (
-              <Button
-                onClick={() => {
-                  followUser(post.userId._id);
-                }}
-                className="bg-gray-400"
-              >
-                Unfollow
-              </Button>
-            ) : (
-              <Button
-                onClick={() => {
-                  followUser(post.userId._id);
-                }}
-              >
-                Follow
-              </Button>
-            )}
-          </div>
-          <div>
-            {post?.userId._id == myId ? (
-              <Button
-                className="bg-red-600"
-                onClick={() => deletePost(post?._id)}
-              >
-                Delete
-              </Button>
-            ) : (
-              <div></div>
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="h-[523px]">
-        <img src={post?.images[0]} alt="" className="h-[100%] w-screen  " />
-      </div>
-      <div className="flex gap-[10px] mx-[10px]">
-        <div className="text-[17px] font-bold">{post?.like.length}</div>
-        <div onClick={() => toggleLike(post._id)}>
-          {myId && post?.like.includes(myId) ? (
-            <Heart fill="red" color="red" />
-          ) : (
-            <Heart />
-          )}
-        </div>
-        <MessageCircle
-          className="w-[20px] h-[20px]"
-          onClick={() => router.push(`/comment/${post._id}`)}
-        />
-      </div>
-      <div className="p-[10px]">
-        <h1 className="text-[20px]">{post?.caption}</h1>
       </div>
       <FooterIcon />
     </div>

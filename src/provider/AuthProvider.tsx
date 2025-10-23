@@ -33,7 +33,7 @@ type contextType = {
   setUser: Dispatch<SetStateAction<null | User>>;
   token: string | null;
   setToken: Dispatch<SetStateAction<null | string>>;
-  myBigId: string | null;
+  myBigId: string | undefined | null;
 };
 type decodedToken = {
   data: User;

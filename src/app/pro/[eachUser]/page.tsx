@@ -103,7 +103,7 @@ const Page = () => {
       </div>
       <div className="flex w-[100%] h-[10%] p-[10px] flex-col gap-[10px]">
         <div className="flex justify-center w-[35%]">{userS?.username}</div>
-        <div className="flex w-[50%] h-[80%] text-[10px]">{userS?.bio}</div>
+        <div className="flex w-[50%] h-[80%] text-[15px]">{userS?.bio}</div>
       </div>
       <div className="flex w-[100%] p-[10px] justify-around">
         <div className="w-[50%]">

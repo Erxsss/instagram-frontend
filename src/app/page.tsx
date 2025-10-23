@@ -8,6 +8,13 @@ import { footerIcon as FooterIcon } from "./_components/footer";
 import { Heart, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 type postType = {
   _id: string;
   caption: string;
@@ -74,12 +81,12 @@ export default function Home() {
       <div className="fixed top-0 bg-white w-screen">
         <HeaderIcon />
       </div>
-      <div className="w-[100%] h-[100%] mt-[60px] overflow-scroll p-[5px]">
+      <div className="w-[100%] h-[100%] mt-[60px] mb-[30px] overflow-scroll p-[5px]">
         {posts.map((post, index) => {
           return (
             <div
               key={index}
-              className="w-[100%] h-[770px] flex flex-col gap-[10px]"
+              className="w-[100%] h-[720px] flex flex-col gap-[10px]"
             >
               <div className="flex items-center gap-[15px]">
                 <div>
@@ -119,13 +126,37 @@ export default function Home() {
                   )}
                 </div>
               </div>
-              <div className="h-[523px]">
-                <img
-                  src={post.images[0]}
-                  alt=""
-                  className="h-[100%] w-screen"
-                />
-              </div>
+              {post.images.length > 1 ? (
+                <Carousel>
+                  <CarouselContent>
+                    {post.images.map((img) => {
+                      return (
+                        <CarouselItem className="p-1" key={img}>
+                          <div>
+                            <div>
+                              <img
+                                src={img}
+                                alt=""
+                                className="h-[523px] w-screen"
+                              />
+                            </div>
+                          </div>
+                        </CarouselItem>
+                      );
+                    })}
+                  </CarouselContent>
+                  <CarouselPrevious className="ml-[52px]" />
+                  <CarouselNext className="mr-[52px]" />
+                </Carousel>
+              ) : (
+                <div>
+                  <img
+                    src={post.images[0]}
+                    alt=""
+                    className="h-[523px] w-screen"
+                  />
+                </div>
+              )}
               <div className="flex gap-[10px] mx-[10px]">
                 <div className="text-[17px] font-bold">{post.like.length}</div>
                 <div onClick={() => toggleLike(post._id)}>

@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   env: {
-    HF: process.env.API_KEY,
+    API_KEY: process.env.API_KEY,
   },
 };
 
