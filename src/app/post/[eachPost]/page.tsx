@@ -100,7 +100,7 @@ const Page = () => {
       <div className="flex items-center gap-[15px]">
         <div>
           <img
-            src={post?.userId?.profilePic}
+            src={post?.userId?.profilePic || undefined}
             alt=""
             className="w-[42px] h-[42px] rounded-4xl"
             onClick={() => router.push(`/pro/${post?.userId._id}`)}

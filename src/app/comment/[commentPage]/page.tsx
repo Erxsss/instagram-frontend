@@ -82,7 +82,7 @@ const Page = () => {
             <div key={com._id} className="gap-[5px] flex flex-col">
               <div className="flex gap-[10px] items-center">
                 <img
-                  src={com.user.profilePic}
+                  src={com.user.profilePic || undefined}
                   alt=""
                   className="w-[45px] h-[45px] rounded-[100%]"
                 />
@@ -113,7 +113,6 @@ const Page = () => {
         </div>
         <div className="w-[60%] h-[100%]">
           <textarea
-            type="text"
             onChange={(e) => handleInput(e)}
             value={input}
             className="w-[100%] h-[100%]"

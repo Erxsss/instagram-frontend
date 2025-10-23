@@ -85,7 +85,7 @@ export default function Home() {
                 <div>
                   <Avatar className="w-[42px] h-[42px] rounded-4xl">
                     <AvatarImage
-                      src={post.userId?.profilePic}
+                      src={post.userId?.profilePic || undefined}
                       onClick={() => router.push(`/pro/${post.userId._id}`)}
                     />
                     <AvatarFallback>CN</AvatarFallback>
@@ -99,7 +99,7 @@ export default function Home() {
                 <div>
                   {post.userId._id === myBigId ? (
                     <div></div>
-                  ) : post.userId.followers.includes(myId) ? (
+                  ) : post.userId.followers.includes(myId || "") ? (
                     <Button
                       onClick={() => {
                         followUser(post.userId._id);

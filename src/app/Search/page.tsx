@@ -57,7 +57,7 @@ const Search = () => {
             >
               <div className="w-[60px] h-[60px] rounded-[100%]">
                 <img
-                  src={user.profilePic}
+                  src={user.profilePic || undefined}
                   alt=""
                   className="rounded-[100%] w-[60px] h-[60px]"
                   onClick={() => router.push(`/pro/${user._id}`)}

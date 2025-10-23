@@ -83,7 +83,7 @@ const Page = () => {
       <div className="flex justify-around p-[10px] items-center w-[100%] h-[15%]">
         <div>
           <img
-            src={userS?.profilePic}
+            src={userS?.profilePic || undefined}
             alt=""
             className="w-[100px] h-[100px] rounded-[100%] border-4"
           />
@@ -107,7 +107,7 @@ const Page = () => {
       </div>
       <div className="flex w-[100%] p-[10px] justify-around">
         <div className="w-[50%]">
-          {userS?.followers.includes(user?._id) ? (
+          {userS?.followers.includes(user?._id || "") ? (
             <Button
               className="w-[90%] bg-gray-500"
               onClick={() => followUser(userS?._id)}
@@ -115,7 +115,10 @@ const Page = () => {
               Unfollow
             </Button>
           ) : (
-            <Button className="w-[90%]" onClick={() => followUser(userS?._id)}>
+            <Button
+              className="w-[90%]"
+              onClick={() => followUser(userS?._id || "")}
+            >
               Follow
             </Button>
           )}

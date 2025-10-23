@@ -123,7 +123,7 @@ const Page = () => {
       <div className="flex justify-around p-[10px] items-center w-[100%] h-[15%]">
         <div>
           <img
-            src={userr?.profilePic}
+            src={userr?.profilePic || undefined}
             alt=""
             className="w-[100px] h-[100px] rounded-[100%] border-4"
           />
