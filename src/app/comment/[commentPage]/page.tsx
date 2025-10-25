@@ -66,6 +66,7 @@ const Page = () => {
       toast.success("Succesfully Commented");
     }
     seeCom();
+    setInput("");
   };
   return (
     <div className="w-screen h-screen flex flex-col">

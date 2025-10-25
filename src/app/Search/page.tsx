@@ -29,6 +29,10 @@ const Search = () => {
   useEffect(() => {
     find();
   }, [input]);
+  const cancel = () => {
+    setInput("");
+    find();
+  };
   console.log(input);
   return (
     <div className="w-screen h-screen flex flex-col">
@@ -46,7 +50,7 @@ const Search = () => {
             onChange={(e) => handleInputValue(e)}
           />
         </div>
-        <div onClick={() => setInput("asd")}>Cancel</div>
+        <div onClick={() => cancel}>Cancel</div>
       </div>
       <div className="flex gap-[10px] flex-col">
         {users.map((user) => {

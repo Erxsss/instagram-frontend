@@ -55,9 +55,10 @@ export default function Home() {
       router.push("/login");
     }
   }, [user]);
+
   useEffect(() => {
-    findPost();
-  }, []);
+    if (user) findPost();
+  }, [user]);
   const followUser = async (followingUserId: string) => {
     console.log(followingUserId);
     console.log(token);
@@ -75,7 +76,7 @@ export default function Home() {
       findPost();
     }
   };
-
+  if (!posts) return <div className="mt-[800px]">Loading...</div>;
   return (
     <div className="w-[100vw] h-[100vh] flex flex-col gap-[10px]">
       <div className="fixed top-0 bg-white w-screen">
