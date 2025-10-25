@@ -2,7 +2,7 @@
 import { CircleFadingPlus, CircleUser, House, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export const footerIcon = () => {
+export const FooterIcon = () => {
   const router = useRouter();
   return (
     <div className="flex fixed bottom-0 w-screen h-[7%] bg-white justify-around items-center bar ">

@@ -3,11 +3,10 @@ import { Button } from "@/components/ui/button";
 import { useUser, User } from "@/provider/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { headerIcon as HeaderIcon } from "./_components/HeaderIcon";
-import { footerIcon as FooterIcon } from "./_components/footer";
+import { HeaderIcon } from "./_components/HeaderIcon";
+import { FooterIcon } from "./_components/footer";
 import { Heart, MessageCircle } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { toast } from "sonner";
 import {
   Carousel,
   CarouselContent,

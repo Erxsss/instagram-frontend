@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { ArrowBigLeft, ArrowLeft } from "lucide-react";
-import { footerIcon as FooterIcon } from "../../_components/footer";
+import { ArrowLeft } from "lucide-react";
+import { FooterIcon } from "../../_components/footer";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useUser, User } from "@/provider/AuthProvider";

@@ -1,8 +1,8 @@
 "use client";
 import { useUser, User } from "@/provider/AuthProvider";
 import { useParams, useRouter } from "next/navigation";
-import { headerIcon as HeaderIcon } from "@/app/_components/HeaderIcon";
-import { footerIcon as FooterIcon } from "@/app/_components/footer";
+import { HeaderIcon } from "@/app/_components/HeaderIcon";
+import { FooterIcon } from "@/app/_components/footer";
 import { useEffect, useState } from "react";
 import { Heart, MessageCircle } from "lucide-react";
 import { toast } from "sonner";

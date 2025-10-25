@@ -1,11 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { headerIcon as HeaderIcon } from "../_components/HeaderIcon";
+import { HeaderIcon } from "../_components/HeaderIcon";
 import { useRouter } from "next/navigation";
-import { footerIcon as FooterIcon } from "../_components/footer";
+import { FooterIcon } from "../_components/footer";
 import { Image } from "lucide-react";
-import { ChangeEvent, useState } from "react";
-import { upload } from "@vercel/blob/client";
 const Page = () => {
   const router = useRouter();
   return (

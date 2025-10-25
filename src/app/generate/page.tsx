@@ -1,12 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useUser } from "@/provider/AuthProvider";
 import { upload } from "@vercel/blob/client";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, KeyboardEvent, useState } from "react";
-import { headerIcon as HeaderIcon } from "../_components/HeaderIcon";
-import { footerIcon as FooterIcon } from "../_components/footer";
+import { ChangeEvent, useState } from "react";
+import { HeaderIcon } from "../_components/HeaderIcon";
+import { FooterIcon } from "../_components/footer";
 import { Textarea } from "@/components/ui/textarea";
 import { toast, Toaster } from "sonner";
 const Page = () => {
@@ -18,14 +17,12 @@ const Page = () => {
     setInputValue(value);
   };
   const [photos, setPhotos] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [caption, setCaption] = useState("");
   const API_KEY = process.env.API_KEY;
   console.log(inputValue);
   const generateImage = async () => {
     setInputValue("");
     if (!inputValue.trim()) return;
-    setIsLoading(true);
     try {
       const headers = {
         "Content-Type": "application/json",
@@ -63,7 +60,6 @@ const Page = () => {
       toast("This might take few seconds", {
         style: {},
       });
-      setIsLoading(false);
     }
   };
   console.log(caption);

@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export const headerIcon = () => {
+export const HeaderIcon = () => {
   const router = useRouter();
   return (
     <div className="w-screen h-[60px] bar top-0">

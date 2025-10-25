@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useUser, User } from "@/provider/AuthProvider";
 import { useParams, useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
-import { footerIcon as FooterIcon } from "@/app/_components/footer";
+import { FooterIcon } from "@/app/_components/footer";
 import { toast } from "sonner";
 import { ArrowLeft, Smile } from "lucide-react";
 type comment = {

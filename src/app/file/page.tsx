@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { upload } from "@vercel/blob/client";
 import { ChangeEvent, useState } from "react";
-import { footerIcon as FooterIcon } from "../_components/footer";
-import { headerIcon as HeaderIcon } from "../_components/HeaderIcon";
+import { FooterIcon } from "../_components/footer";
+import { HeaderIcon } from "../_components/HeaderIcon";
 import { Input } from "@/components/ui/input";
 import { ImageUp } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";

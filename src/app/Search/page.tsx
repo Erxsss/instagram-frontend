@@ -1,6 +1,6 @@
 "use client";
 import { ArrowLeft, SearchCheck } from "lucide-react";
-import { footerIcon as FooterIcon } from "../_components/footer";
+import { FooterIcon } from "../_components/footer";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useUser, User } from "@/provider/AuthProvider";
 import { useRouter } from "next/navigation";
