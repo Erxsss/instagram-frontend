@@ -58,7 +58,7 @@ const Page = () => {
           <div className="flex flex-col justify-around h-[120px]">
             <Input
               type="file"
-              accept="jpeg/png"
+              accept="image/*"
               onChange={(e) => handleInput(e)}
               className=" w-[250px] h-[80px]"
             />
