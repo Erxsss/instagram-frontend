@@ -7,13 +7,14 @@ import { useEffect, useState } from "react";
 import { Heart, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion"; // <- import Framer Motion
 
 type postType = {
   _id: string;
   caption: string;
   images: string[];
   like: string[];
-  userId: User & { followers: string[] }; // ensure followers exist
+  userId: User & { followers: string[] };
 };
 
 const Page = () => {
@@ -22,6 +23,7 @@ const Page = () => {
   const router = useRouter();
 
   const [post, setPost] = useState<postType | null>(null);
+  const [animateLike, setAnimateLike] = useState(false); // <- state for animation
   const myId = user?._id;
   const postId = params.eachPost;
 
@@ -59,6 +61,9 @@ const Page = () => {
     );
     if (res.ok) {
       await findPost();
+      // Trigger animation
+      setAnimateLike(true);
+      setTimeout(() => setAnimateLike(false), 300); // reset after 300ms
     } else {
       toast.error("Like авахад алдаа гарлаа");
     }
@@ -103,6 +108,7 @@ const Page = () => {
     <div className="flex items-center flex-col">
       <HeaderIcon />
       <div className="w-[100%] h-[739px] flex flex-col gap-[10px] justify-center">
+        {/* User info */}
         <div className="flex items-center gap-[15px]">
           <div>
             <img
@@ -145,23 +151,35 @@ const Page = () => {
             )}
           </div>
         </div>
+
+        {/* Post image */}
         <div className="h-[523px]">
           <img src={post.images[0]} alt="" className="h-[100%] w-screen" />
         </div>
+
+        {/* Like & comment */}
         <div className="flex gap-[10px] mx-[10px] items-center">
-          <div className="text-[17px] font-bold">{post.like.length}</div>
-          <div onClick={() => toggleLike(post._id)}>
+          <motion.div
+            onClick={() => toggleLike(post._id)}
+            className="cursor-pointer"
+            animate={animateLike ? { scale: 1.3 } : { scale: 1 }}
+            transition={{ type: "spring", stiffness: 500, damping: 20 }}
+          >
             {myId && post.like.includes(myId) ? (
               <Heart fill="red" color="red" />
             ) : (
               <Heart />
             )}
-          </div>
+          </motion.div>
+          <div className="text-[17px] font-bold">{post.like.length}</div>
+
           <MessageCircle
             className="w-[20px] h-[20px] cursor-pointer"
             onClick={() => router.push(`/comment/${post._id}`)}
           />
         </div>
+
+        {/* Caption */}
         <div className="p-[10px]">
           <h1 className="text-[20px]">{post.caption}</h1>
         </div>
