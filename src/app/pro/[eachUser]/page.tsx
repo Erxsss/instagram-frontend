@@ -23,26 +23,32 @@ const Page = () => {
   const userId = params.eachUser;
   const router = useRouter();
   const seePost = async () => {
-    const res = await fetch(`http://localhost:5555/post/postUser/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/jsons",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `https://ig-backend-p8fz.onrender.com/post/postUser/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-type": "application/jsons",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.ok) {
       const posts = await res.json();
       setPosts(posts);
     }
   };
   const seeProfile = async () => {
-    const res = await fetch(`http://localhost:5555/user/pro/${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/jsons",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `https://ig-backend-p8fz.onrender.com/user/pro/${userId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/jsons",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.ok) {
       const user = await res.json();
       setUser(user);
@@ -50,7 +56,7 @@ const Page = () => {
   };
   const followUser = async (followingUserId: string) => {
     const res = await fetch(
-      `http://localhost:5555/user/followToggle/${followingUserId}`,
+      `https://ig-backend-p8fz.onrender.com/user/followToggle/${followingUserId}`,
       {
         method: "POST",
         headers: {

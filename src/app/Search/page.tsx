@@ -10,13 +10,16 @@ const Search = () => {
   const router = useRouter();
   const { token } = useUser();
   const find = async () => {
-    const res = await fetch(`http://localhost:5555/user/users/${input}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://ig-backend-p8fz.onrender.com/user/users/${input}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (res.ok) {
       const users = await res.json();
       setUsers(users);

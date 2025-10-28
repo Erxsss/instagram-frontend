@@ -27,24 +27,30 @@ export default function Home() {
   const [posts, setPost] = useState<postType[]>([]);
   const myId = user?._id;
   const findPost = async () => {
-    const response = await fetch("http://localhost:5555/post/posts", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      "https://ig-backend-p8fz.onrender.com/post/posts",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const res = await response.json();
     setPost(res);
   };
   const toggleLike = async (userId: string) => {
-    const res = await fetch(`http://localhost:5555/post/postLike/${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `https://ig-backend-p8fz.onrender.com/post/postLike/${userId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.ok) {
       await findPost();
     }
@@ -62,7 +68,7 @@ export default function Home() {
     console.log(followingUserId);
     console.log(token);
     const res = await fetch(
-      `http://localhost:5555/user/followToggle/${followingUserId}`,
+      `https://ig-backend-p8fz.onrender.com/user/followToggle/${followingUserId}`,
       {
         method: "POST",
         headers: {

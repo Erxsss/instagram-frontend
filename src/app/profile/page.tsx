@@ -30,13 +30,16 @@ const Page = () => {
   const [posts, setPosts] = useState<postType[]>([]);
   const router = useRouter();
   const findUser = async () => {
-    const response = await fetch("http://localhost:5555/post/userPosts", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      "https://ig-backend-p8fz.onrender.com/post/userPosts",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const res = await response.json();
     setPosts(res);
   };
@@ -47,18 +50,21 @@ const Page = () => {
     username: `${user?.username}`,
   });
   const findUserPro = async () => {
-    const response = await fetch(`http://localhost:5555/user/pro/${myBigId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `https://ig-backend-p8fz.onrender.com/user/pro/${myBigId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const usr = await response.json();
     setUserr(usr);
   };
   const editUser = async () => {
-    const res = await fetch(`http://localhost:5555/user/edit`, {
+    const res = await fetch(`https://ig-backend-p8fz.onrender.com/user/edit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +86,7 @@ const Page = () => {
   const logOut = () => {
     localStorage.removeItem("token");
     setToken(null);
-    router.push("login");
+    router.push("/login");
   };
   useEffect(() => {
     if (token) findUser();

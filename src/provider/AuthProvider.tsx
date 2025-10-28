@@ -62,18 +62,21 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     password: string,
     bio: string
   ) => {
-    const response = await fetch("http://localhost:5555/user/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
-        bio: bio,
-      }),
-    });
+    const response = await fetch(
+      "https://ig-backend-p8fz.onrender.com/user/signup",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          email: email,
+          password: password,
+          bio: bio,
+        }),
+      }
+    );
     if (response.ok) {
       const res = await response.json();
       localStorage.setItem("token", res);
@@ -85,16 +88,19 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   };
 
   const login = async (email: string, pass: string) => {
-    const response = await fetch("http://localhost:5555/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        password: pass,
-      }),
-    });
+    const response = await fetch(
+      "https://ig-backend-p8fz.onrender.com/user/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: pass,
+        }),
+      }
+    );
     console.log(response);
 
     if (!response.ok) {

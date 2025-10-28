@@ -26,13 +26,16 @@ const Page = () => {
   const postId = params.eachPost;
 
   const findPost = async () => {
-    const res = await fetch(`http://localhost:5555/post/userPost/${postId}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `https://ig-backend-p8fz.onrender.com/post/userPost/${postId}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (res.ok) {
       const data: postType = await res.json();
       setPost(data);
@@ -44,13 +47,16 @@ const Page = () => {
   }, [token]);
 
   const toggleLike = async (postId: string) => {
-    const res = await fetch(`http://localhost:5555/post/postLike/${postId}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      `https://ig-backend-p8fz.onrender.com/post/postLike/${postId}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     if (res.ok) {
       await findPost();
     } else {
@@ -59,19 +65,22 @@ const Page = () => {
   };
 
   const deletePost = async (postId: string) => {
-    await fetch(`http://localhost:5555/post/deletePost/${postId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    await fetch(
+      `https://ig-backend-p8fz.onrender.com/post/deletePost/${postId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     router.push("/");
   };
 
   const followUser = async (followingUserId: string) => {
     const res = await fetch(
-      `http://localhost:5555/user/followToggle/${followingUserId}`,
+      `https://ig-backend-p8fz.onrender.com/user/followToggle/${followingUserId}`,
       {
         method: "POST",
         headers: {

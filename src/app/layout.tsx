@@ -30,7 +30,9 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased `}
         >
-          <div>{children}</div>
+          <div className="w-[screen]">
+            <div>{children}</div>
+          </div>
           <Toaster richColors={true} />
         </body>
       </AuthProvider>
