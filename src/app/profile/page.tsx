@@ -118,12 +118,12 @@ const Page = () => {
   console.log(input);
   return (
     <div className="w-screen h-screen flex flex-col pt-[10px] relative gap-[10px]">
-      <div>
+      <div className="h-[1%]">
         <div className="left-0" onClick={() => router.push("/")}>
           <ArrowLeft className="h-[30px] w-[30px]" />
         </div>
       </div>
-      <div className="flex justify-center p-[10px] items-center h-[15%] gap-[60px] mt-[-10px]">
+      <div className="flex justify-center p-[10px] items-center h-[10%] gap-[60px] mt-[-10px]">
         <div className="flex m-[-20px]">
           <img
             src={userr?.profilePic || undefined}
@@ -133,7 +133,7 @@ const Page = () => {
         </div>
         <div className="text-[30px] font-bold">{user?.username}</div>
       </div>
-      <div className="flex justify-evenly mt-[20px] text-[17px]">
+      <div className="flex justify-evenly mt-[20px] text-[17px] h-[10%]">
         <div>
           <div className="flex justify-center">{posts.length}</div>
           <div className=" text-gray-600 ">Post</div>
@@ -147,12 +147,12 @@ const Page = () => {
           <div className=" text-gray-600 ">Following</div>
         </div>
       </div>
-      <div className="flex justify-center  w-[100%] h-[10%] p-[5px] flex-col gap-[15px] flex-wrap">
+      <div className="flex justify-center  w-[100%] h-[4%] p-[5px] flex-col gap-[15px] flex-wrap">
         <div className="flex w-[100%] h-[80%] text-[18px] justify-center">
           {userr?.bio}
         </div>
       </div>
-      <div className="flex w-[100%] p-[10px] justify-evenly">
+      <div className="flex w-[100%] h-[5%] p-[10px] justify-evenly">
         <div>
           <Dialog>
             <form>
@@ -227,8 +227,8 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <div className="w-[100%] flex justify-center">
-        <div className="flex w-[90%] flex-wrap rounded-2xl px-[5px] py-[4px] gap-[10px] pb-[70px] overflow-scroll justify-center">
+      <div className="w-[100%] flex justify-center h-[70%] ">
+        <div className="flex w-[90%] flex-wrap justify-center px-[5px] py-[4px] gap-[10px]  overflow-scroll h-[100%] pb-[60px]">
           {posts.map((post, index) => {
             return (
               <div key={index}>

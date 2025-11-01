@@ -106,17 +106,17 @@ const Page = () => {
             >
               <div className="flex gap-[10px] items-center">
                 <img
-                  src={com.user.profilePic || undefined}
+                  src={com?.user?.profilePic || undefined}
                   alt=""
                   className="w-[45px] h-[45px] rounded-[100%]"
                 />
-                <h1 className="font-bold">{com.user.username}</h1>
+                <h1 className="font-bold">{com?.user?.username}</h1>
               </div>
               <div className="flex flex-col gap-[3px] ">
                 <div className="flex justify-between">
-                  <div className="text-[20px]">{com.comment}</div>
+                  <div className="text-[20px]">{com?.comment}</div>
                   <div>
-                    {com.user._id == user?._id ? (
+                    {com?.user?._id == user?._id ? (
                       <Trash onClick={() => deleteCom(com._id)} />
                     ) : (
                       <div></div>
