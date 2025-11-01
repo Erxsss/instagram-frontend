@@ -8,7 +8,13 @@ import { Heart, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion"; // <- import Framer Motion
-
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 type postType = {
   _id: string;
   caption: string;
@@ -19,11 +25,11 @@ type postType = {
 
 const Page = () => {
   const params = useParams<{ eachPost: string }>();
-  const { token, user } = useUser();
+  const { token, user, myBigId } = useUser();
   const router = useRouter();
 
   const [post, setPost] = useState<postType | null>(null);
-  const [animateLike, setAnimateLike] = useState(false); // <- state for animation
+  const [animateLike, setAnimateLike] = useState(false);
   const myId = user?._id;
   const postId = params.eachPost;
 
@@ -61,9 +67,8 @@ const Page = () => {
     );
     if (res.ok) {
       await findPost();
-      // Trigger animation
       setAnimateLike(true);
-      setTimeout(() => setAnimateLike(false), 300); // reset after 300ms
+      setTimeout(() => setAnimateLike(false), 300);
     } else {
       toast.error("Like авахад алдаа гарлаа");
     }
@@ -108,7 +113,6 @@ const Page = () => {
     <div className="flex items-center flex-col">
       <HeaderIcon />
       <div className="w-[100%] h-[739px] flex flex-col gap-[10px] justify-center">
-        {/* User info */}
         <div className="flex items-center gap-[15px]">
           <div>
             <img
@@ -128,17 +132,21 @@ const Page = () => {
           </div>
           <div className="flex gap-[20px]">
             <div>
-              {post.userId.followers.includes(myId || "") ? (
-                <Button
-                  onClick={() => followUser(post.userId._id)}
-                  className="bg-gray-400"
-                >
-                  Unfollow
-                </Button>
+              {post.userId._id !== myBigId ? (
+                post.userId.followers.includes(myId || "") ? (
+                  <Button
+                    onClick={() => followUser(post.userId._id)}
+                    className="bg-gray-400"
+                  >
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button onClick={() => followUser(post.userId._id)}>
+                    Follow
+                  </Button>
+                )
               ) : (
-                <Button onClick={() => followUser(post.userId._id)}>
-                  Follow
-                </Button>
+                <div></div>
               )}
             </div>
             {post.userId._id === myId && (
@@ -152,12 +160,32 @@ const Page = () => {
           </div>
         </div>
 
-        {/* Post image */}
-        <div className="h-[523px]">
-          <img src={post.images[0]} alt="" className="h-[100%] w-screen" />
+        <div className="rounded-xl overflow-hidden">
+          {post.images.length > 1 ? (
+            <Carousel>
+              <CarouselContent>
+                {post.images.map((img) => (
+                  <CarouselItem key={img}>
+                    <img
+                      src={img}
+                      alt=""
+                      className="object-cover w-full max-h-[520px] rounded-lg"
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="ml-[70px]" />
+              <CarouselNext className="mr-[70px]" />
+            </Carousel>
+          ) : (
+            <img
+              src={post.images[0]}
+              alt=""
+              className="object-cover w-full max-h-[520px] rounded-lg"
+            />
+          )}
         </div>
 
-        {/* Like & comment */}
         <div className="flex gap-[10px] mx-[10px] items-center">
           <motion.div
             onClick={() => toggleLike(post._id)}
@@ -179,7 +207,6 @@ const Page = () => {
           />
         </div>
 
-        {/* Caption */}
         <div className="p-[10px]">
           <h1 className="text-[20px]">{post.caption}</h1>
         </div>
