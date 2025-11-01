@@ -80,55 +80,75 @@ const Page = () => {
   };
   console.log(photos);
   return (
-    <div className="w-[100vw] h-[100vh]  ">
+    <div className="w-[100vw] h-[100vh]">
       <HeaderIcon />
-      <div className="flex flex-col gap-[5px] p-[10px] ">
+
+      <div className="flex flex-col gap-[10px] p-[15px]">
+        {/* Title */}
         <div>
-          <h1 className="font-bold text-[20px]">Explore AI Generated Images</h1>
-        </div>
-        <div>
-          <p className="text-gray-600">
-            Describe what is on your mind. For best results, be specific
+          <h1 className="font-bold text-[22px] text-gray-900 tracking-wide">
+            Explore AI Generated Images
+          </h1>
+          <p className="text-gray-600 text-[14px] mt-[2px]">
+            Describe what is on your mind. For best results, be specific.
           </p>
         </div>
+
+        {/* Prompt input */}
         <div>
           <Textarea
             onChange={(e) => handleInputValue(e)}
             placeholder="Please Enter Your Prompt"
-            className="w-[398px] h-[102px] border-4 border-black"
+            className="w-[398px] h-[102px] border-4 border-black rounded-xl shadow-md focus:ring-2 focus:ring-gray-800 transition-all duration-200"
             value={inputValue}
           />
         </div>
-        <div className="flex justify-center mt-[5px] ">
-          <Button onClick={generateImage} className="  w-[60%] h-[40px]">
+
+        <div className="flex justify-center mt-[10px]">
+          <Button
+            onClick={generateImage}
+            className="w-[60%] h-[45px] bg-gradient-to-r from-gray-900 to-black text-white rounded-xl font-semibold shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
+          >
             Generate
           </Button>
         </div>
+
         <div className="p-[5px]">
-          <div className="flex border-4 overflow-scroll w-[100%] h-[300px] flex-wrap gap-[5px] p-[5px] border-black gra">
-            {photos.map((photo, index) => {
-              return (
-                <div key={index}>
-                  <img src={photo} alt="" className="w-[140px] h-[200px]" />
-                </div>
-              );
-            })}
+          <div className="flex border-4 border-black rounded-xl overflow-auto w-full h-[300px] flex-wrap gap-[10px] p-[10px] bg-white shadow-inner bar">
+            {photos.map((photo, index) => (
+              <div
+                key={index}
+                className="hover:scale-105 transition-transform duration-200"
+              >
+                <img
+                  src={photo}
+                  alt=""
+                  className="w-[140px] h-[200px] object-cover rounded-lg shadow-md border border-gray-300"
+                />
+              </div>
+            ))}
           </div>
         </div>
+
         <div>
           <Textarea
             placeholder="Please Enter Caption"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
-            className="border-4 border-black"
+            className="border-4 border-black rounded-xl shadow-md focus:ring-2 focus:ring-gray-800 transition-all duration-200"
           />
         </div>
+
         <div className="flex justify-center">
-          <Button onClick={createPost} className="w-[60%] h-[40px]">
+          <Button
+            onClick={createPost}
+            className="w-[60%] h-[45px] bg-gradient-to-r from-black to-gray-800 text-white rounded-xl font-semibold shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
+          >
             Create Post
           </Button>
         </div>
       </div>
+
       <Toaster className="bg-green-500" />
       <FooterIcon />
     </div>
