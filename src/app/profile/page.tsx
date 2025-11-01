@@ -117,24 +117,24 @@ const Page = () => {
   };
   console.log(input);
   return (
-    <div className="w-screen h-screen flex flex-col pt-[10px] relative">
-      <div className="w-screen h-[5%] flex gap-[30px] ">
-        <div className="flex w-[60%] justify-between">
-          <div className="left-0" onClick={() => router.push("/")}>
-            <ArrowLeft className="h-[100%] w-[100%]" />
-          </div>
-          <div className="text-[20px] m-[10px]">{userr?.username}</div>
+    <div className="w-screen h-screen flex flex-col pt-[10px] relative gap-[10px]">
+      <div>
+        <div className="left-0" onClick={() => router.push("/")}>
+          <ArrowLeft className="h-[30px] w-[30px]" />
         </div>
       </div>
-      <div className="flex justify-around p-[10px] items-center w-[100%] h-[15%]">
-        <div>
+      <div className="flex justify-center p-[10px] items-center h-[15%] gap-[60px] mt-[-10px]">
+        <div className="flex m-[-20px]">
           <img
             src={userr?.profilePic || undefined}
             alt=""
-            className="w-[100px] h-[100px] rounded-[100%] border-4"
+            className="w-[100px] h-[100px] rounded-[100%] border-4 border-y-sky-400 border-x-pink-400"
           />
         </div>
-        <div className="">
+        <div className="text-[30px] font-bold">{user?.username}</div>
+      </div>
+      <div className="flex justify-evenly mt-[20px] text-[17px]">
+        <div>
           <div className="flex justify-center">{posts.length}</div>
           <div className=" text-gray-600 ">Post</div>
         </div>
@@ -147,16 +147,17 @@ const Page = () => {
           <div className=" text-gray-600 ">Following</div>
         </div>
       </div>
-      <div className="flex w-[100%] h-[10%] p-[5px] flex-col gap-[15px]">
-        <div className="flex justify-center w-[35%]">{userr?.username}</div>
-        <div className="flex w-[50%] h-[80%] text-[15px]">{userr?.bio}</div>
+      <div className="flex justify-center  w-[100%] h-[10%] p-[5px] flex-col gap-[15px] flex-wrap">
+        <div className="flex w-[100%] h-[80%] text-[18px] justify-center">
+          {userr?.bio}
+        </div>
       </div>
-      <div className="flex w-[100%] p-[10px] justify-around">
-        <div className="w-[50%]">
+      <div className="flex w-[100%] p-[10px] justify-evenly">
+        <div>
           <Dialog>
             <form>
               <DialogTrigger asChild>
-                <Button variant="outline" className="w-[200px]">
+                <Button variant="outline" className="w-[160px]">
                   Edit Profile
                 </Button>
               </DialogTrigger>
@@ -220,30 +221,30 @@ const Page = () => {
             </form>
           </Dialog>
         </div>
-        <div className="w-[50%]">
-          <Button className="w-[90%]" onClick={() => logOut()}>
+        <div>
+          <Button className="w-[160px]" onClick={() => logOut()}>
             Log Out
           </Button>
         </div>
       </div>
-      <div className="flex w-screen flex-wrap rounded-2xl px-[5px] py-[4px] gap-[5px] pb-[70px] overflow-scroll">
-        {posts.map((post, index) => {
-          return (
-            <div key={index}>
-              <img
-                src={post.images[0]}
-                alt=""
-                className="w-[130px] h-[170px] rounded-2xl"
-                onClick={() => router.push(`/post/${post._id}`)}
-              />
-            </div>
-          );
-        })}
+      <div className="w-[100%] flex justify-center">
+        <div className="flex w-[90%] flex-wrap rounded-2xl px-[5px] py-[4px] gap-[10px] pb-[70px] overflow-scroll justify-center">
+          {posts.map((post, index) => {
+            return (
+              <div key={index}>
+                <img
+                  src={post.images[0]}
+                  alt=""
+                  className="w-[170px] h-[230px] rounded-2xl border-4 border-y-sky-400 border-x-pink-400"
+                  onClick={() => router.push(`/post/${post._id}`)}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
       <FooterIcon />
     </div>
   );
 };
 export default Page;
-
-// Fall@2024!

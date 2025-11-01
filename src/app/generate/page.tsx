@@ -24,6 +24,7 @@ const Page = () => {
     setInputValue("");
     if (!inputValue.trim()) return;
     try {
+      toast("This might take few seconds");
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${API_KEY}`,
@@ -55,9 +56,8 @@ const Page = () => {
       const imageUrl = uploaded.url;
       console.log(uploaded);
       setPhotos((prev) => [...prev, imageUrl]);
-      toast("This might take few seconds");
     } catch (err) {
-      toast("This might take few seconds", {
+      toast.error("Cant generate image", {
         style: {},
       });
     }
