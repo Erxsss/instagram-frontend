@@ -114,7 +114,7 @@ export default function Home() {
                 {post.userId?.username}
               </div>
               <div className="ml-auto">
-                {post.userId._id ===
+                {post?.userId?._id ===
                 myBigId ? null : post.userId.followers.includes(myId || "") ? (
                   <Button
                     onClick={() => followUser(post.userId._id)}
