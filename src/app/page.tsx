@@ -115,7 +115,9 @@ export default function Home() {
               </div>
               <div className="ml-auto">
                 {post?.userId?._id ===
-                myBigId ? null : post.userId.followers.includes(myId || "") ? (
+                myBigId ? null : post?.userId?.followers.includes(
+                    myId || ""
+                  ) ? (
                   <Button
                     onClick={() => followUser(post.userId._id)}
                     className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 h-8 text-sm"
