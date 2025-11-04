@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast, Toaster } from "sonner";
 const Page = () => {
   const { token } = useUser();
-  const [inputValue, setInputValue] = useState<string>("");
+  const [prompt, setInputValue] = useState<string>("");
   const router = useRouter();
   const handleInputValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -19,48 +19,26 @@ const Page = () => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [caption, setCaption] = useState("");
   const API_KEY = process.env.API_KEY;
-  console.log(inputValue);
   const generateImage = async () => {
     setInputValue("");
-    if (!inputValue.trim()) return;
-    try {
-      toast("This might take few seconds");
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      };
-      const response = await fetch(
-        "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
-        {
-          method: "POST",
-          headers: headers,
-          body: JSON.stringify({
-            inputs: inputValue,
-            parameter: {
-              negative_prompt: "blurry , bad quality,disorted",
-              num_inference_steps: 20,
-              guidance_scale: 7.6,
-            },
-          }),
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status:${response.status}`);
-      }
-      const blob = await response.blob();
-      const file = new File([blob], "generated.png", { type: "image/png" });
-      const uploaded = await upload(file.name, file, {
-        access: "public",
-        handleUploadUrl: "api/upload",
-      });
-      const imageUrl = uploaded.url;
-      console.log(uploaded);
-      setPhotos((prev) => [...prev, imageUrl]);
-    } catch (err) {
-      toast.error("Cant generate image", {
-        style: {},
-      });
-    }
+
+    const response = await fetch("/api/generate", {
+      method: "POST",
+      body: JSON.stringify({ prompt }),
+    });
+
+    if (!response.ok) throw new Error("Failed to generate");
+
+    const blob = await response.blob();
+
+    const file = new File([blob], "generated.png", { type: "image/png" });
+
+    const uploaded = await upload(file.name, file, {
+      access: "public",
+      handleUploadUrl: "/api/upload",
+    });
+
+    setPhotos((prev) => [...prev, uploaded.url]);
   };
   console.log(caption);
 
@@ -84,7 +62,6 @@ const Page = () => {
       <HeaderIcon />
 
       <div className="flex flex-col gap-[10px] p-[15px]">
-        {/* Title */}
         <div>
           <h1 className="font-bold text-[22px] text-gray-900 tracking-wide">
             Explore AI Generated Images
@@ -94,13 +71,12 @@ const Page = () => {
           </p>
         </div>
 
-        {/* Prompt input */}
         <div>
           <Textarea
             onChange={(e) => handleInputValue(e)}
             placeholder="Please Enter Your Prompt"
             className="w-[398px] h-[102px] border-4 border-black rounded-xl shadow-md focus:ring-2 focus:ring-gray-800 transition-all duration-200"
-            value={inputValue}
+            value={prompt}
           />
         </div>
 
