@@ -49,12 +49,11 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     const localToken = localStorage.getItem("token");
     if (localToken) {
       const decodedToken: decodedToken = jwtDecode(localToken);
+      console.log(decodedToken);
       setToken(localToken);
       setUser(decodedToken.data);
     }
   }, []);
-
-  console.log(user);
   const myBigId = user?._id;
   const signup = async (
     username: string,
@@ -107,6 +106,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       toast.error("Didnt Joined");
     } else {
       const token = await response.json();
+      console.log(token);
       localStorage.setItem("token", token);
       toast.success("joined");
       push("/");
