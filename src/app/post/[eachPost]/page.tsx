@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Heart, MessageCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion"; // <- import Framer Motion
+import { motion } from "framer-motion"; 
 import {
   Carousel,
   CarouselContent,

@@ -14,8 +14,8 @@ const Page = () => {
           <Image className="w-[100px] h-[100px]" />
         </div>
         <div>
-          <Button onClick={() => router.push("/file")}>
-            Upload From Computer
+          <Button onClick={() => router.push("/file")} className="w-[185px]">
+            Upload From Phone
           </Button>
         </div>
         <div>

@@ -156,3 +156,6 @@
     rgba(255, 224, 195, 1) 100%
   );
 }
+.bod {
+  background-image: linear-gradient(to top, #fad0c4 0%, #ffd1ff 100%);
+}

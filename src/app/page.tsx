@@ -88,8 +88,8 @@ export default function Home() {
   if (!posts) return <div className="mt-[800px]">Loading...</div>;
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-gray-50 text-gray-900">
-      <div className="fixed top-0 z-50 bg-white/90 backdrop-blur-md w-full border-b border-gray-200 shadow-sm">
+    <div className="w-full min-h-screen flex flex-col bg-gray-50 text-gray-900 bod">
+      <div className="fixed top-0 z-50  backdrop-blur-md w-full">
         <HeaderIcon />
       </div>
 

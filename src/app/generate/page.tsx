@@ -11,6 +11,7 @@ import { toast, Toaster } from "sonner";
 const Page = () => {
   const { token } = useUser();
   const [prompt, setInputValue] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const handleInputValue = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
@@ -18,17 +19,16 @@ const Page = () => {
   };
   const [photos, setPhotos] = useState<string[]>([]);
   const [caption, setCaption] = useState("");
-  const API_KEY = process.env.API_KEY;
   const generateImage = async () => {
     setInputValue("");
-
+    setLoading(true);
+    toast.info("This might take few seconds");
     const response = await fetch("/api/generate", {
       method: "POST",
       body: JSON.stringify({ prompt }),
     });
 
     if (!response.ok) throw new Error("Failed to generate");
-
     const blob = await response.blob();
 
     const file = new File([blob], "generated.png", { type: "image/png" });
@@ -37,7 +37,7 @@ const Page = () => {
       access: "public",
       handleUploadUrl: "/api/upload",
     });
-
+    if (uploaded) setLoading(false);
     setPhotos((prev) => [...prev, uploaded.url]);
   };
   console.log(caption);
@@ -81,12 +81,23 @@ const Page = () => {
         </div>
 
         <div className="flex justify-center mt-[10px]">
-          <Button
-            onClick={generateImage}
-            className="w-[60%] h-[45px] bg-gradient-to-r from-gray-900 to-black text-white rounded-xl font-semibold shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
-          >
-            Generate
-          </Button>
+          {loading ? (
+            <Button
+              onClick={generateImage}
+              disabled={true}
+              className="w-[60%] h-[45px] bg-gradient-to-r from-gray-900 to-black text-white rounded-xl font-semibold shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
+            >
+              Generate
+            </Button>
+          ) : (
+            <Button
+              onClick={generateImage}
+              disabled={false}
+              className="w-[60%] h-[45px] bg-gradient-to-r from-gray-900 to-black text-white rounded-xl font-semibold shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
+            >
+              Generate
+            </Button>
+          )}
         </div>
 
         <div className="p-[5px]">
